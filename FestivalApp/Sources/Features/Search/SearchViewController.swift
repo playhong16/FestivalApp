@@ -11,9 +11,12 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Components
 
-    let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .systemYellow
+        tv.dataSource = self
+        tv.delegate = self
+        tv.register(FestivalCell.self, forCellReuseIdentifier: FestivalCell.identifier)
         return tv
     }()
 
@@ -25,7 +28,7 @@ final class SearchViewController: UIViewController {
         setLayout()
     }
     
-    // MARK: - Configure
+    // MARK: - Layout
     
     func addSubviews() {
         view.addSubview(tableView)
@@ -39,5 +42,28 @@ final class SearchViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+// MARK: - Extension
+
+extension SearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MockFestival.makeMockList().count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FestivalCell.identifier) as? FestivalCell else {
+            return UITableViewCell()
+        }
+        let mockList = MockFestival.makeMockList()
+        cell.setupData(mockList[indexPath.row])
+        return cell
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 145
     }
 }

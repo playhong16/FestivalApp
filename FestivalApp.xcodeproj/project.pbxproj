@@ -17,6 +17,7 @@
 		05DDA6502B4535B60052B730 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA64F2B4535B60052B730 /* DetailViewController.swift */; };
 		05DDA6542B4589D50052B730 /* Festival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6532B4589D50052B730 /* Festival.swift */; };
 		05DDA6562B4653690052B730 /* MockFestival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6552B4653690052B730 /* MockFestival.swift */; };
+		05DDA6582B4656C10052B730 /* FestivalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6572B4656C10052B730 /* FestivalCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		05DDA64F2B4535B60052B730 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		05DDA6532B4589D50052B730 /* Festival.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Festival.swift; sourceTree = "<group>"; };
 		05DDA6552B4653690052B730 /* MockFestival.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFestival.swift; sourceTree = "<group>"; };
+		05DDA6572B4656C10052B730 /* FestivalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				05DDA6402B4533F00052B730 /* SearchViewController.swift */,
+				05DDA6572B4656C10052B730 /* FestivalCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				05DDA6412B4533F00052B730 /* SearchViewController.swift in Sources */,
 				05DDA6442B45343E0052B730 /* MainTabBarController.swift in Sources */,
 				05DDA6562B4653690052B730 /* MockFestival.swift in Sources */,
+				05DDA6582B4656C10052B730 /* FestivalCell.swift in Sources */,
 				05DDA62A2B4533950052B730 /* AppDelegate.swift in Sources */,
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
