@@ -68,7 +68,12 @@ class FestivalCell: UITableViewCell {
     }
     
     func setupData(_ festival: MockFestival) {
-        mainImageView.image = UIImage(systemName: "scribble")
+        NetworkManager.shared.fetchImage(urlString: festival.imageURLString) { image in
+            DispatchQueue.main.async {
+                self.mainImageView.image = image
+            }
+        }
+//        mainImageView.loadImage(to: festival.imageURLString)
         titleLabel.text = festival.title
         dateLabel.text = "\(festival.eventStartDate) ~ \(festival.eventEndDate)"
         addressLabel.text = festival.address
