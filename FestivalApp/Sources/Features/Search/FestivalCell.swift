@@ -8,6 +8,7 @@
 import UIKit
 
 class FestivalCell: UITableViewCell {
+    
     static let identifier = "FestivalCell"
     
     // MARK: - Components
@@ -67,16 +68,15 @@ class FestivalCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func setupData(_ festival: MockFestival) {
+    func setupData(_ festival: Festival) {
         NetworkManager.shared.fetchImage(urlString: festival.imageURLString) { image in
             DispatchQueue.main.async {
                 self.mainImageView.image = image
+                self.titleLabel.text = festival.title
+                self.dateLabel.text = "\(festival.eventStartDate) ~ \(festival.eventEndDate)"
+                self.addressLabel.text = festival.addr1
             }
         }
-//        mainImageView.loadImage(to: festival.imageURLString)
-        titleLabel.text = festival.title
-        dateLabel.text = "\(festival.eventStartDate) ~ \(festival.eventEndDate)"
-        addressLabel.text = festival.address
     }
     
     // MARK: - Layout

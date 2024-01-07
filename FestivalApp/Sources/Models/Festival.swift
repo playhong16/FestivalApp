@@ -28,11 +28,11 @@ struct Body: Codable {
 
 // MARK: - Items
 struct Items: Codable {
-    let item: [Item]
+    let item: [Festival]
 }
 
 // MARK: - Festival
-struct Item: Codable {
+struct Festival: Codable {
     let addr1: String
     let addr2: String
     let booktour: String
@@ -42,9 +42,9 @@ struct Item: Codable {
     let contentid: String
     let contenttypeid: String
     let createdtime: String
-    let eventstartdate: String
-    let eventenddate: String
-    let firstimage: String
+    let eventStartDate: String
+    let eventEndDate: String
+    let imageURLString: String
     let firstimage2: String
     let cpyrhtDivCD: CpyrhtDivCD
     let mapx: String
@@ -57,7 +57,10 @@ struct Item: Codable {
     let title: String
 
     enum CodingKeys: String, CodingKey {
-        case addr1, addr2, booktour, cat1, cat2, cat3, contentid, contenttypeid, createdtime, eventstartdate, eventenddate, firstimage, firstimage2
+        case addr1, addr2, booktour, cat1, cat2, cat3, contentid, contenttypeid, createdtime, firstimage2
+        case eventStartDate = "eventstartdate"
+        case eventEndDate = "eventenddate"
+        case imageURLString = "firstimage"
         case cpyrhtDivCD = "cpyrhtDivCd"
         case mapx, mapy, mlevel, modifiedtime, areacode, sigungucode, tel, title
     }

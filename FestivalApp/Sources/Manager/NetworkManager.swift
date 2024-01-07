@@ -13,8 +13,10 @@ final class NetworkManager {
     
     private init() {}
     
-    let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
     let session = URLSession(configuration: URLSessionConfiguration.default)
+    private let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String ?? ""
+    private let urlString = "https://apis.data.go.kr/B551011/KorService1/searchFestival1?numOfRows=10&MobileOS=IOS&MobileApp=FestivalApp&_type=json&eventStartDate=20230103&serviceKey="
+    
     
     func fetchImage(urlString: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: urlString) else { return }
@@ -32,8 +34,9 @@ final class NetworkManager {
         task.resume()
     }
     
-    func fetchFestival(urlString: String, completion: @escaping ([Item]) -> Void) {
-        guard let url = URL(string: urlString) else { return }
+    func fetchFestival(completion: @escaping ([Festival]) -> Void) {
+        guard let url = URL(string: self.urlString + self.apiKey) else { return }
+        print(url)
         let task = session.dataTask(with: url) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse,
                   (200..<300).contains(httpResponse.statusCode) else {
@@ -42,11 +45,13 @@ final class NetworkManager {
             }
 
             guard let data = data else { return }
-            print(String(decoding: data, as: UTF8.self))
             
             do {
                 let decoder = JSONDecoder()
-                let welcome = try decoder.decode(Welcome.self, from: data)
+                let decodedData = try decoder.decode(Welcome.self, from: data)
+                let festivalList = decodedData.response.body.items.item
+                print(festivalList)
+                completion(festivalList)
             } catch {
                 print("NetworkManager - ERROR: fetchFestival(urlString:completion) \(error)")
             }

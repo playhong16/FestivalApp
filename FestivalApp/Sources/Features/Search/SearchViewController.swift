@@ -9,6 +9,8 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
+    private let dataManager = DataManager.shared
+    
     // MARK: - Components
 
     lazy var tableView: UITableView = {
@@ -26,6 +28,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         addSubviews()
         setLayout()
+        setupDatas()
     }
     
     // MARK: - Layout
@@ -43,21 +46,34 @@ final class SearchViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    // MARK: - Data
+    
+    func setupDatas() {
+        dataManager.setupDatasFromAPI {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
 }
 
 // MARK: - Extension
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MockFestival.makeMockList().count
+        return dataManager.festivalList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FestivalCell.identifier) as? FestivalCell else {
             return UITableViewCell()
         }
-        let mockList = MockFestival.makeMockList()
-        cell.setupData(mockList[indexPath.row])
+        
+        let festivalList = dataManager.festivalList
+        cell.setupData(festivalList[indexPath.row])
+        
         return cell
     }
 }
