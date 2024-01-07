@@ -15,7 +15,9 @@ class FestivalCell: UITableViewCell {
 
     let mainImageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .systemRed
+        iv.backgroundColor = .white
+        iv.tintColor = .lightGray
+        iv.image = UIImage(systemName: "photo.artframe")
         return iv
     }()
     
