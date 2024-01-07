@@ -15,11 +15,19 @@ final class SearchViewController: UIViewController {
 
     lazy var tableView: UITableView = {
         let tv = UITableView()
-        tv.backgroundColor = .systemYellow
+        tv.backgroundColor = .white
         tv.dataSource = self
         tv.delegate = self
         tv.register(FestivalCell.self, forCellReuseIdentifier: FestivalCell.identifier)
         return tv
+    }()
+    
+    lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .systemCyan
+        indicator.center = self.view.center
+        indicator.style = .large
+        return indicator
     }()
 
     // MARK: - Life Cycle
@@ -35,6 +43,7 @@ final class SearchViewController: UIViewController {
     
     func addSubviews() {
         view.addSubview(tableView)
+        view.addSubview(indicator)
     }
     
     func setLayout() {
@@ -50,9 +59,11 @@ final class SearchViewController: UIViewController {
     // MARK: - Data
     
     func setupDatas() {
+        indicator.startAnimating()
         dataManager.setupDatasFromAPI {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
             }
         }
     }
