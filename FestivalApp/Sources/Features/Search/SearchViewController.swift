@@ -96,6 +96,13 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
-        navigationController?.pushViewController(detailVC, animated: true)
+        let festival = dataManager.festivalList[indexPath.row]
+        dataManager.setupInfomationFromAPI(contentID: festival.contentid) { information in
+            detailVC.festival = festival
+            detailVC.information = information
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(detailVC, animated: true)
+            }
+        }
     }
 }
