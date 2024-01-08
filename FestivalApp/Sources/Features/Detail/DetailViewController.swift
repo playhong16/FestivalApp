@@ -9,6 +9,9 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
+    var festival: Festival?
+    var information: Information?
+    
     // MARK: - Components
     
     lazy var tableView: UITableView = {
@@ -64,9 +67,17 @@ extension DetailViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier) as? ContentCell else {
             return UITableViewCell()
         }
+        
+        guard let festival = self.festival, let information = self.information else { return UITableViewCell() }
+        
+        cell.mainView.setupData(festival, information: information)
         return cell
     }
 }
 
 extension DetailViewController: UITableViewDelegate {
+    // NOTE: InfomationView 의 높이를 계산해서 Cell의 높이를 줄 수는 없을까?
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.size.height / 1.5
+    }
 }
