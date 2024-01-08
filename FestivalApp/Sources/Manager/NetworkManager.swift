@@ -58,7 +58,7 @@ final class NetworkManager {
         task.resume()
     }
     
-    func fetchDetailInfomation(contentID: String, completion: @escaping ([Infomation]) -> Void) {
+    func fetchDetailInfomation(contentID: String, completion: @escaping (Information?) -> Void) {
         let urlString = "https://apis.data.go.kr/B551011/KorService1/detailInfo1?MobileOS=IOS&MobileApp=FestivalApp&_type=json&contentId=\(contentID)&contentTypeId=15&serviceKey="
         guard let url = URL(string: urlString + apiKey) else { return }
         let task = session.dataTask(with: url) { data, response, error in
@@ -72,9 +72,9 @@ final class NetworkManager {
             
             do {
                 let decoder = JSONDecoder()
-                let decodedData = try decoder.decode(InfomationWelcome.self, from: data)
-                let infomation = decodedData.response.body.items.infomation
-                completion(infomation)
+                let decodedData = try decoder.decode(InformationWelcome.self, from: data)
+                let information = decodedData.response.body.items.information
+                completion(information.first)
             } catch {
                 print(#function + "NetworkManager - ERROR: \(error)")
             }
