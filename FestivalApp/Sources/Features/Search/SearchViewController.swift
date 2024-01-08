@@ -24,8 +24,8 @@ final class SearchViewController: UIViewController {
     
     lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.color = .systemCyan
-        indicator.center = self.view.center
+        indicator.color = .systemBlue
+        indicator.center = view.center
         indicator.style = .large
         return indicator
     }()
