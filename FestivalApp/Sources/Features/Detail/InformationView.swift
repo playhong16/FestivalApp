@@ -12,7 +12,16 @@ class InfomationView: UIView {
     // MARK: - Components
     
     lazy var stackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [titleLabel, dateLabel, infoLabel])
+        let sv = UIStackView(arrangedSubviews: [nameStackView, dateStackView, contentStackView])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 20
+        return sv
+    }()
+    
+    lazy var nameStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [nameTitleLabel, nameTextLabel])
         sv.axis = .vertical
         sv.alignment = .fill
         sv.distribution = .fill
@@ -20,24 +29,70 @@ class InfomationView: UIView {
         return sv
     }()
     
-    let titleLabel: UILabel = {
+    let nameTitleLabel: UILabel = {
         let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.text = "행사 이름"
+        return label
+    }()
+    
+    let nameTextLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .black
         label.text = "제목"
         return label
     }()
     
-    let dateLabel: UILabel = {
+    lazy var dateStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [dateTitleLabel, dateTextLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 10
+        return sv
+    }()
+    
+    let dateTitleLabel: UILabel = {
         let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.text = "행사 날짜"
+        return label
+    }()
+    
+    let dateTextLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .black
         label.text = "날짜"
         return label
     }()
     
-    let infoLabel: UILabel = {
+    lazy var contentStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [contentTitleLabel, contentTextLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 10
+        return sv
+    }()
+    
+    let contentTitleLabel: UILabel = {
         let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
-        label.text = "정보"
+        label.text = "행사 소개"
+        return label
+    }()
+    
+    let contentTextLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .black
+        label.text = "소개"
+        label.numberOfLines = 0
         return label
     }()
 
@@ -74,9 +129,9 @@ class InfomationView: UIView {
     
     func setupData(_ festival: Festival, information: Information) {
         DispatchQueue.main.async {
-            self.titleLabel.text = festival.title
-            self.dateLabel.text = festival.eventStartDate
-            self.infoLabel.text = information.infotext
+            self.nameTextLabel.text = festival.title
+            self.dateTextLabel.text = festival.eventStartDate
+            self.contentTextLabel.text = information.infotext
         }
     }
 }
