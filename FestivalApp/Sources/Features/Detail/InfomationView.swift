@@ -9,9 +9,16 @@ import UIKit
 
 class InfomationView: UIView {
     
-    private let networkManager = NetworkManager.shared
-    
     // MARK: - Components
+    
+    lazy var stackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [titleLabel, dateLabel, infoLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 10
+        return sv
+    }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -39,6 +46,8 @@ class InfomationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        self.addSubviews()
+        self.setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -48,20 +57,26 @@ class InfomationView: UIView {
     // MARK: - Layout
     
     private func addSubviews() {
+        self.addSubview(stackView)
     }
     
     private func setLayout() {
-        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+        ])
     }
 
     
     // MARK: - Data
     
-    func setupData(_ festival: Festival) {
-        networkManager.fetchDetailInfomation(contentID: festival.contentid) { infomations in
-            self.titleLabel.text = infomations.first?.infoname
+    func setupData(_ festival: Festival, information: Information) {
+        DispatchQueue.main.async {
+            self.titleLabel.text = festival.title
             self.dateLabel.text = festival.eventStartDate
-            self.infoLabel.text = infomations.first?.infotext
+            self.infoLabel.text = information.infotext
         }
     }
 }
