@@ -10,25 +10,29 @@ import Foundation
 // NOTE: - json 파싱 결과 임의 기록
 
 // MARK: - Welcome
-struct Welcome: Codable {
-    let response: Response
+struct FestivalWelcome: Codable {
+    let response: FestivalResponse
 }
 
 // MARK: - Response
-struct Response: Codable {
-    let header: Header
-    let body: Body
+struct FestivalResponse: Codable {
+    let header: FestivalHeader
+    let body: FestivalBody
 }
 
 // MARK: - Body
-struct Body: Codable {
-    let items: Items
+struct FestivalBody: Codable {
+    let items: Festivals
     let numOfRows, pageNo, totalCount: Int
 }
 
 // MARK: - Items
-struct Items: Codable {
-    let item: [Festival]
+struct Festivals: Codable {
+    let festivals: [Festival]
+    
+    enum CodingKeys: String, CodingKey {
+        case festivals = "item"
+    }
 }
 
 // MARK: - Festival
@@ -86,6 +90,6 @@ enum CpyrhtDivCD: String, Codable {
 }
 
 // MARK: - Header
-struct Header: Codable {
+struct FestivalHeader: Codable {
     let resultCode, resultMsg: String
 }
