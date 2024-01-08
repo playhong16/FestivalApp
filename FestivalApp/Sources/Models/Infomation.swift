@@ -1,5 +1,5 @@
 //
-//  DetailInfomation.swift
+//  Infomation.swift
 //  FestivalApp
 //
 //  Created by playhong on 2024/01/08.
@@ -8,39 +8,39 @@
 import Foundation
 
 // MARK: - Welcome
-struct InfomationWelcome: Codable {
-    let response: InfomationResponse
+struct InformationWelcome: Codable {
+    let response: InformationResponse
 }
 
 // MARK: - Response
-struct InfomationResponse: Codable {
-    let header: InfomationHeader
-    let body: InfomationBody
+struct InformationResponse: Codable {
+    let header: InformationHeader
+    let body: InformationBody
 }
 
 // MARK: - Body
-struct InfomationBody: Codable {
-    let items: InfomationData
+struct InformationBody: Codable {
+    let items: InformationData
     let numOfRows, pageNo, totalCount: Int
 }
 
 // MARK: - Items
-struct InfomationData: Codable {
-    let infomation: [Infomation]
+struct InformationData: Codable {
+    let information: [Information]
     
     enum CodingKeys: String, CodingKey {
-        case infomation = "item"
+        case information = "item"
     }
 }
 
 // MARK: - Item
-struct Infomation: Codable {
+struct Information: Codable {
     let contentid, contenttypeid, serialnum, infoname: String
     let infotext, fldgubun: String
 }
 
 // MARK: - Header
-struct InfomationHeader: Codable {
+struct InformationHeader: Codable {
     let resultCode, resultMsg: String
 }
 
