@@ -27,4 +27,9 @@ class DataManager {
         }
     }
     
+    func setupInfomationFromAPI(contentID: String,completion: @escaping (Information?) -> Void) {
+        networkManager.fetchDetailInfomation(contentID: contentID) { infomation in
+            completion(infomation)
+        }
+    }
 }
