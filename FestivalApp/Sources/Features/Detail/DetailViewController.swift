@@ -16,7 +16,7 @@ final class DetailViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let tv = UITableView()
-        tv.backgroundColor = .systemBlue
+        tv.backgroundColor = .white
         tv.dataSource = self
         tv.delegate = self
         tv.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
@@ -24,13 +24,20 @@ final class DetailViewController: UIViewController {
         return tv
     }()
     
-    lazy var headerView: UICollectionView = {
-        let layout = UICollectionViewLayout()
-        let cv = UICollectionView(
-            frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height / 3),
-            collectionViewLayout: layout)
-        cv.backgroundColor = .lightGray
-        return cv
+//    lazy var headerView: UICollectionView = {
+//        let layout = UICollectionViewLayout()
+//        let cv = UICollectionView(
+//            frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height / 3),
+//            collectionViewLayout: layout)
+//        cv.backgroundColor = .lightGray
+//        return cv
+//    }()
+    
+    lazy var headerView: UIImageView = {
+        let iv = UIImageView(
+            frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height / 3))
+        iv.contentMode = .scaleAspectFit
+        return iv
     }()
     
     // MARK: - Life Cycle
@@ -39,6 +46,8 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         addSubviews()
         setLayout()
+        setNavigationController()
+        setMainImage(urlString: self.festival?.imageURLString)
     }
     
     // MARK: - Layout
@@ -56,7 +65,24 @@ final class DetailViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    // MARK: - Configure
+
+    func setNavigationController() {
+        self.navigationItem.title = "상세 정보"
+        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+    }
+    
+    // MARK: - Data
+
+    func setMainImage(urlString: String?) {
+        guard let urlString = urlString else { return }
+        headerView.loadImage(to: urlString)
+    }
 }
+
+// MARK: - Extension
 
 extension DetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
