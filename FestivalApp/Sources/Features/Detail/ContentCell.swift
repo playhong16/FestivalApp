@@ -10,7 +10,7 @@ import UIKit
 class ContentCell: UITableViewCell {
     static let identifier = "ContentCell"
     
-    var mainView: UIView!
+    var mainView: InfomationView!
     
     // MARK: - Life Cycle
 
