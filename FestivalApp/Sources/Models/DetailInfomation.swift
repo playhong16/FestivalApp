@@ -8,25 +8,25 @@
 import Foundation
 
 // MARK: - Welcome
-struct DetailInfomationWelcome: Codable {
-    let response: DetailInfomationResponse
+struct InfomationWelcome: Codable {
+    let response: InfomationResponse
 }
 
 // MARK: - Response
-struct DetailInfomationResponse: Codable {
-    let header: DetailInfomationHeader
-    let body: DetailInfomationBody
+struct InfomationResponse: Codable {
+    let header: InfomationHeader
+    let body: InfomationBody
 }
 
 // MARK: - Body
-struct DetailInfomationBody: Codable {
-    let items: DetailInfomationDatas
+struct InfomationBody: Codable {
+    let items: InfomationData
     let numOfRows, pageNo, totalCount: Int
 }
 
 // MARK: - Items
-struct DetailInfomationDatas: Codable {
-    let infomation: [DetailInfomation]
+struct InfomationData: Codable {
+    let infomation: [Infomation]
     
     enum CodingKeys: String, CodingKey {
         case infomation = "item"
@@ -34,13 +34,13 @@ struct DetailInfomationDatas: Codable {
 }
 
 // MARK: - Item
-struct DetailInfomation: Codable {
+struct Infomation: Codable {
     let contentid, contenttypeid, serialnum, infoname: String
     let infotext, fldgubun: String
 }
 
 // MARK: - Header
-struct DetailInfomationHeader: Codable {
+struct InfomationHeader: Codable {
     let resultCode, resultMsg: String
 }
 
