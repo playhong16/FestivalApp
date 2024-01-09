@@ -11,6 +11,8 @@ extension UIImageView {
     func loadImage(to urlString: String) {
         guard let url = URL(string: urlString) else {
             let image = UIImage(systemName: "photo")
+            self.backgroundColor = .white
+            self.tintColor = .lightGray
             self.image = image
             print("ERROR: 잘못된 URL 문자열입니다.")
             return
