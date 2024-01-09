@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = UINavigationController(rootViewController: SearchViewController())
         window.makeKeyAndVisible()
+        window.overrideUserInterfaceStyle = .light
         self.window = window
     }
 
