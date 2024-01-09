@@ -128,9 +128,11 @@ class InfomationView: UIView {
     // MARK: - Data
     
     func setupData(_ festival: Festival, information: Information) {
+        let startDate = StringFormatter.convertCustomStringDate(from: festival.eventStartDate)
+        let endDate = StringFormatter.convertCustomStringDate(from: festival.eventEndDate)
         DispatchQueue.main.async {
             self.nameTextLabel.text = festival.title
-            self.dateTextLabel.text = festival.eventStartDate
+            self.dateTextLabel.text = "\(startDate) ~ \(endDate)"
             self.contentTextLabel.text = information.infotext
         }
     }

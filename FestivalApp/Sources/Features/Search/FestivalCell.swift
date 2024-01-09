@@ -69,11 +69,13 @@ class FestivalCell: UITableViewCell {
     }
     
     func setupData(_ festival: Festival) {
+        let startDate = StringFormatter.convertCustomStringDate(from: festival.eventStartDate)
+        let endDate = StringFormatter.convertCustomStringDate(from: festival.eventEndDate)
         NetworkManager.shared.fetchImage(urlString: festival.imageURLString) { image in
             DispatchQueue.main.async {
                 self.mainImageView.image = image
                 self.titleLabel.text = festival.title
-                self.dateLabel.text = "\(festival.eventStartDate) ~ \(festival.eventEndDate)"
+                self.dateLabel.text = "\(startDate) ~ \(endDate)"
                 self.addressLabel.text = festival.addr1
             }
         }
