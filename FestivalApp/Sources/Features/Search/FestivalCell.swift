@@ -32,18 +32,21 @@ class FestivalCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
         return label
     }()
     
     let dateLabel: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .black
         return label
     }()
     
     let addressLabel: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
         return label
     }()
@@ -102,7 +105,7 @@ class FestivalCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             stackView.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50)
         ])
     }
 }
