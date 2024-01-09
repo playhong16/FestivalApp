@@ -24,6 +24,7 @@
 		05DDA6662B4AD5010052B730 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6652B4AD5010052B730 /* ContentCell.swift */; };
 		05DDA6682B4AD6AF0052B730 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6672B4AD6AF0052B730 /* InformationView.swift */; };
 		05DDA66B2B4B8EE40052B730 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66A2B4B8EE40052B730 /* Information.swift */; };
+		05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		05DDA6652B4AD5010052B730 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
 		05DDA6672B4AD6AF0052B730 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		05DDA66A2B4B8EE40052B730 /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
+		05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		05DDA6462B4534B00052B730 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				05DDA66C2B4D1A230052B730 /* Helper */,
 				05DDA65D2B47D1EA0052B730 /* Extension */,
 				05DDA6422B4533F70052B730 /* App */,
 				05DDA64D2B4535800052B730 /* Models */,
@@ -180,6 +183,14 @@
 				05DDA65E2B47D2040052B730 /* UIImageView+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		05DDA66C2B4D1A230052B730 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +274,7 @@
 				05DDA6662B4AD5010052B730 /* ContentCell.swift in Sources */,
 				05DDA65F2B47D2040052B730 /* UIImageView+Extension.swift in Sources */,
 				05DDA62A2B4533950052B730 /* AppDelegate.swift in Sources */,
+				05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */,
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
 				05DDA6502B4535B60052B730 /* DetailViewController.swift in Sources */,
