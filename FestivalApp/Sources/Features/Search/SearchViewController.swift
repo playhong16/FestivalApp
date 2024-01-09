@@ -34,10 +34,23 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        embedSearchControl()
         addSubviews()
         setLayout()
         setupDatas()
     }
+    
+    // MARK: - Embed
+    
+    private func embedSearchControl() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "축제 이름을 입력해주세요."
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        self.navigationItem.searchController = searchController
+    }
+
     
     // MARK: - Layout
     
@@ -67,10 +80,22 @@ final class SearchViewController: UIViewController {
             }
         }
     }
-
 }
 
 // MARK: - Extension
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let keyword = searchController.searchBar.text
+        print("search: \(keyword)")
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("Button Cliked \(searchBar.text)")
+    }
+}
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
