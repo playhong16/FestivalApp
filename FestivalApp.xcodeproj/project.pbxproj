@@ -25,6 +25,7 @@
 		05DDA6682B4AD6AF0052B730 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6672B4AD6AF0052B730 /* InformationView.swift */; };
 		05DDA66B2B4B8EE40052B730 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66A2B4B8EE40052B730 /* Information.swift */; };
 		05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */; };
+		05DDA6702B4D47200052B730 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66F2B4D47200052B730 /* SearchResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		05DDA6672B4AD6AF0052B730 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		05DDA66A2B4B8EE40052B730 /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
 		05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
+		05DDA66F2B4D47200052B730 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			children = (
 				05DDA6402B4533F00052B730 /* SearchViewController.swift */,
 				05DDA6572B4656C10052B730 /* FestivalCell.swift */,
+				05DDA66F2B4D47200052B730 /* SearchResultViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				05DDA62A2B4533950052B730 /* AppDelegate.swift in Sources */,
 				05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */,
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
+				05DDA6702B4D47200052B730 /* SearchResultViewController.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
 				05DDA6502B4535B60052B730 /* DetailViewController.swift in Sources */,
 				05DDA6542B4589D50052B730 /* Festival.swift in Sources */,
