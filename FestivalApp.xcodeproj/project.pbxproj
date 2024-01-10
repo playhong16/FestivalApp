@@ -115,6 +115,7 @@
 		05DDA6462B4534B00052B730 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				05DDA6752B4E91C40052B730 /* Network */,
 				05DDA66C2B4D1A230052B730 /* Helper */,
 				05DDA65D2B47D1EA0052B730 /* Extension */,
 				05DDA6422B4533F70052B730 /* App */,
@@ -155,7 +156,6 @@
 		05DDA64A2B4535200052B730 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				05DDA6592B47BFD60052B730 /* NetworkManager.swift */,
 				05DDA6612B4AB9D30052B730 /* DataManager.swift */,
 				05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */,
 			);
@@ -168,7 +168,6 @@
 				05DDA6532B4589D50052B730 /* Festival.swift */,
 				05DDA6552B4653690052B730 /* MockFestival.swift */,
 				05DDA66A2B4B8EE40052B730 /* Information.swift */,
-				05DDA6712B4E4FD70052B730 /* NetworkError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +196,15 @@
 				05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		05DDA6752B4E91C40052B730 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				05DDA6712B4E4FD70052B730 /* NetworkError.swift */,
+				05DDA6592B47BFD60052B730 /* NetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
