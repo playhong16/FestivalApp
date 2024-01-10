@@ -78,7 +78,7 @@ final class DetailViewController: UIViewController {
 
     func setMainImage(urlString: String?) {
         guard let urlString = urlString else { return }
-        headerView.loadImage(to: urlString)
+        headerView.setImage(to: urlString)
     }
 }
 

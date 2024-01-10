@@ -75,7 +75,7 @@ class FestivalCell: UITableViewCell {
         let startDate = StringFormatter.convertCustomStringDate(from: festival.eventStartDate)
         let endDate = StringFormatter.convertCustomStringDate(from: festival.eventEndDate)
         DispatchQueue.main.async {
-            self.mainImageView.loadImage(to: festival.imageURLString)
+            self.mainImageView.setImage(to: festival.imageURLString)
             self.titleLabel.text = festival.title
             self.dateLabel.text = "\(startDate) ~ \(endDate)"
             self.addressLabel.text = festival.addr1
