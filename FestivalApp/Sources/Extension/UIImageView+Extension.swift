@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImageView {
-    func loadImage(to urlString: String) {
+    func setImage(to urlString: String) {
         guard let url = URL(string: urlString) else {
             let image = UIImage(systemName: "photo")
             self.backgroundColor = .white
@@ -19,16 +19,22 @@ extension UIImageView {
         }
         
         DispatchQueue.global().async {
-            do {
-                let data = try Data(contentsOf: url)
-                if let image = UIImage(data: data) {
+            let cachedKey = NSString(string: urlString)
+            
+            if let cachedImage = ImageCacheManager.shared.object(forKey: cachedKey) {
+                DispatchQueue.main.async {
+                    self.image = cachedImage
+                    return
+                }
+            }
+            
+            NetworkManager.shared.fetchImage(urlString: urlString) { image in
+                if let image = image {
                     DispatchQueue.main.async {
+                        ImageCacheManager.shared.setObject(image, forKey: cachedKey)
                         self.image = image
-                        print("SUCEESS: 이미지 로드 성공!")
                     }
                 }
-            } catch {
-                print("ERROR: 이미지 로드 실패! \(error)")
             }
         }
     }
