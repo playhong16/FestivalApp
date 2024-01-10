@@ -33,7 +33,7 @@ class InfomationView: UIView {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
-        label.text = "행사 이름"
+        label.text = "축제 이름"
         return label
     }()
     
@@ -58,7 +58,7 @@ class InfomationView: UIView {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
-        label.text = "행사 날짜"
+        label.text = "축제 날짜"
         return label
     }()
     
@@ -83,7 +83,7 @@ class InfomationView: UIView {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
-        label.text = "행사 소개"
+        label.text = "축제 소개"
         return label
     }()
     
