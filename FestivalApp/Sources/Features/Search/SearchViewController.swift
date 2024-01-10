@@ -11,6 +11,15 @@ final class SearchViewController: UIViewController {
     
     private let dataManager = DataManager.shared
     
+    var isFiltered: Bool {
+        let searchController = self.navigationItem.searchController
+        let isActive = searchController?.isActive ?? false
+        let isSearchBarhasText = searchController?.searchBar.text?.isEmpty == false
+        return isActive && isSearchBarhasText
+    }
+    
+    var filterdFestivals: [Festival] = []
+    
     // MARK: - Components
 
     lazy var tableView: UITableView = {
@@ -86,8 +95,10 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        let keyword = searchController.searchBar.text
+        guard let keyword = searchController.searchBar.text else { return }
         print("search: \(keyword)")
+        filterdFestivals = dataManager.festivalList.filter { $0.title.contains(keyword) }
+        tableView.reloadData()
     }
 }
 
@@ -99,12 +110,22 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltered {
+            return self.filterdFestivals.count
+        }
+        
         return dataManager.festivalList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FestivalCell.identifier) as? FestivalCell else {
             return UITableViewCell()
+        }
+        
+        if isFiltered {
+            let festivals = self.filterdFestivals
+            cell.setupData(festivals[indexPath.row])
+            return cell
         }
         
         let festivalList = dataManager.festivalList
