@@ -21,15 +21,26 @@ class DataManager {
     private init() {}
     
     func setupDatasFromAPI(completion: @escaping () -> Void) {
-        networkManager.fetchFestival { items in
-            self._festivalList = items
-            completion()
+        networkManager.fetchFestival { result in
+            switch result {
+            case .success(let festivals):
+                completion()
+                self._festivalList = festivals
+            case .failure(let error):
+                print(error)
+                completion()
+            }
         }
     }
     
     func setupInfomationFromAPI(contentID: String,completion: @escaping (Information?) -> Void) {
-        networkManager.fetchDetailInfomation(contentID: contentID) { infomation in
-            completion(infomation)
+        networkManager.fetchDetailInfomation(contentID: contentID) { result in
+            switch result {
+            case .success(let information):
+                completion(information)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }
