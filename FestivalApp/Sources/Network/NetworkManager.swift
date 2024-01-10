@@ -11,11 +11,9 @@ final class NetworkManager {
     
     static let shared = NetworkManager()
     
-    private init() {}
-    
     private let session = URLSession(configuration: URLSessionConfiguration.default)
-    private let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String ?? ""
-    private let base = "https://apis.data.go.kr/B551011/KorService1/"
+    
+    private init() {}
     
     typealias FestivalResult = Result<[Festival], NetworkError>
     typealias InformationResult = Result<Information?, NetworkError>
@@ -40,9 +38,9 @@ final class NetworkManager {
         let dateFormmatter = DateFormatter()
         dateFormmatter.dateFormat = "YYYYMMDD"
         let todayString = dateFormmatter.string(from: date)
-        let path = "searchFestival1?numOfRows=10&MobileOS=IOS&MobileApp=FestivalApp&_type=json&eventStartDate=\(todayString)&serviceKey="
+        let urlString = NetworkResource.searchURL + "&eventStartDate=\(todayString)"
         
-        guard let url = URL(string: base + path + apiKey) else {
+        guard let url = URL(string: urlString) else {
             completion(.failure(.invalidURL))
             return
         }
@@ -68,8 +66,8 @@ final class NetworkManager {
     }
     
     func fetchDetailInfomation(contentID: String, completion: @escaping (InformationResult) -> Void) {
-        let path = "detailInfo1?MobileOS=IOS&MobileApp=FestivalApp&_type=json&contentId=\(contentID)&contentTypeId=15&serviceKey="
-        guard let url = URL(string: base + path + apiKey)
+        let urlString = NetworkResource.detailInformationURL + "&contentId=\(contentID)"
+        guard let url = URL(string: urlString)
         else {
             completion(.failure(.invalidURL))
             return
