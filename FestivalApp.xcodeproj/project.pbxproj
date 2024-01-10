@@ -26,6 +26,7 @@
 		05DDA66B2B4B8EE40052B730 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66A2B4B8EE40052B730 /* Information.swift */; };
 		05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */; };
 		05DDA6702B4D47200052B730 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66F2B4D47200052B730 /* SearchResultViewController.swift */; };
+		05DDA6722B4E4FD70052B730 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6712B4E4FD70052B730 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		05DDA66A2B4B8EE40052B730 /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
 		05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		05DDA66F2B4D47200052B730 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		05DDA6712B4E4FD70052B730 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				05DDA6532B4589D50052B730 /* Festival.swift */,
 				05DDA6552B4653690052B730 /* MockFestival.swift */,
 				05DDA66A2B4B8EE40052B730 /* Information.swift */,
+				05DDA6712B4E4FD70052B730 /* NetworkError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
 				05DDA6702B4D47200052B730 /* SearchResultViewController.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
+				05DDA6722B4E4FD70052B730 /* NetworkError.swift in Sources */,
 				05DDA6502B4535B60052B730 /* DetailViewController.swift in Sources */,
 				05DDA6542B4589D50052B730 /* Festival.swift in Sources */,
 			);
