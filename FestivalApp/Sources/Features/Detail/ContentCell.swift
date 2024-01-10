@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContentCell: UITableViewCell {
+final class ContentCell: UITableViewCell {
     static let identifier = "ContentCell"
     
     var mainView: InfomationView!

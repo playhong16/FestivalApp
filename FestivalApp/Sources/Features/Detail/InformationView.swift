@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfomationView: UIView {
+final class InfomationView: UIView {
     
     // MARK: - Components
     

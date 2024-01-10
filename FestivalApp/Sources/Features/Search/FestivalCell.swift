@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FestivalCell: UITableViewCell {
+final class FestivalCell: UITableViewCell {
     
     static let identifier = "FestivalCell"
     
