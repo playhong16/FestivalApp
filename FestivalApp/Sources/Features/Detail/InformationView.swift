@@ -12,7 +12,8 @@ final class InfomationView: UIView {
     // MARK: - Components
     
     lazy var stackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [nameStackView, dateStackView, contentStackView])
+        let sv = UIStackView(
+            arrangedSubviews: [nameStackView, dateStackView, contentStackView, telephoneNumberStackView])
         sv.axis = .vertical
         sv.alignment = .fill
         sv.distribution = .fill
@@ -95,6 +96,32 @@ final class InfomationView: UIView {
         label.numberOfLines = 0
         return label
     }()
+    
+    lazy var telephoneNumberStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [telephoneNumberTitleLabel, telephoneNumberTextLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 10
+        return sv
+    }()
+    
+    let telephoneNumberTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.text = "문의하기"
+        return label
+    }()
+    
+    let telephoneNumberTextLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .black
+        label.text = "문의 번호"
+        label.numberOfLines = 0
+        return label
+    }()
 
     // MARK: - Life Cycle
 
@@ -134,6 +161,7 @@ final class InfomationView: UIView {
             self.nameTextLabel.text = festival.title
             self.dateTextLabel.text = "\(startDate) ~ \(endDate)"
             self.contentTextLabel.text = information.infotext
+            self.telephoneNumberTextLabel.text = festival.tel
         }
     }
 }
