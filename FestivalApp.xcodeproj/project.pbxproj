@@ -27,6 +27,7 @@
 		05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */; };
 		05DDA6722B4E4FD70052B730 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6712B4E4FD70052B730 /* NetworkError.swift */; };
 		05DDA6742B4E76DD0052B730 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */; };
+		05DDA6772B4EBAAA0052B730 /* NetworkResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		05DDA6712B4E4FD70052B730 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 			children = (
 				05DDA6712B4E4FD70052B730 /* NetworkError.swift */,
 				05DDA6592B47BFD60052B730 /* NetworkManager.swift */,
+				05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */,
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
+				05DDA6772B4EBAAA0052B730 /* NetworkResource.swift in Sources */,
 				05DDA6722B4E4FD70052B730 /* NetworkError.swift in Sources */,
 				05DDA6502B4535B60052B730 /* DetailViewController.swift in Sources */,
 				05DDA6542B4589D50052B730 /* Festival.swift in Sources */,
