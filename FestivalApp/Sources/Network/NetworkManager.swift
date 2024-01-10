@@ -15,9 +15,13 @@ final class NetworkManager {
     
     private init() {}
     
+    // MARK: - Result
+
     typealias FestivalResult = Result<[Festival], NetworkError>
     typealias InformationResult = Result<Information?, NetworkError>
     
+    // MARK: - Image
+
     func fetchImage(urlString: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: urlString) else { return }
         let task = session.dataTask(with: url) { data, response, error in
@@ -33,6 +37,8 @@ final class NetworkManager {
         task.resume()
     }
     
+    // MARK: - Festivals
+
     func fetchFestival(completion: @escaping (FestivalResult) -> Void) {
         let date = Date()
         let dateFormmatter = DateFormatter()
@@ -65,6 +71,8 @@ final class NetworkManager {
         task.resume()
     }
     
+    // MARK: - Detail Information
+
     func fetchDetailInfomation(contentID: String, completion: @escaping (InformationResult) -> Void) {
         let urlString = NetworkResource.detailInformationURL + "&contentId=\(contentID)"
         guard let url = URL(string: urlString)
