@@ -24,15 +24,6 @@ final class DetailViewController: UIViewController {
         return tv
     }()
     
-//    lazy var headerView: UICollectionView = {
-//        let layout = UICollectionViewLayout()
-//        let cv = UICollectionView(
-//            frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height / 3),
-//            collectionViewLayout: layout)
-//        cv.backgroundColor = .lightGray
-//        return cv
-//    }()
-    
     lazy var headerView: UIImageView = {
         let iv = UIImageView(
             frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height / 3))
