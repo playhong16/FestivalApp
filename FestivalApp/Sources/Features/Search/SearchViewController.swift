@@ -97,14 +97,26 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let keyword = searchController.searchBar.text else { return }
         print("search: \(keyword)")
-        filterdFestivals = dataManager.festivalList.filter { $0.title.contains(keyword) }
-        tableView.reloadData()
+        if keyword.isEmpty == false {
+            filterdFestivals = dataManager.festivalList.filter { $0.title.contains(keyword) }
+            tableView.reloadData()
+        }
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("Button Cliked \(searchBar.text)")
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        if isFiltered == false {
+            return
+        }
+        
+        if searchBar.text?.isEmpty == true {
+            tableView.reloadData()
+        }
     }
 }
 
