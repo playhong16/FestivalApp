@@ -110,13 +110,8 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        if isFiltered == false {
-            return
-        }
-        
-        if searchBar.text?.isEmpty == true {
-            tableView.reloadData()
-        }
+        searchBar.text = ""
+        tableView.reloadData()
     }
 }
 
