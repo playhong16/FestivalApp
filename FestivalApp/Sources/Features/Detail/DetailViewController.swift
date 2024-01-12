@@ -12,13 +12,24 @@ final class DetailViewController: UIViewController {
     var festival: Festival?
     var information: Information?
     
+    var titles: [String] {
+        ["행사 이름", "행사 날짜", "행사 소개", "행사 문의"]
+    }
+    
+    var contents: [String?] {
+        guard let festival = festival, let information = information else { return [] }
+        let startDate = festival.eventStartDate.convertContentDate()
+        let endDate = festival.eventEndDate.convertContentDate()
+        let date = "\(startDate) ~ \(endDate)"
+        return [festival.title, date, information.infotext, festival.tel]
+    }
+    
     // MARK: - Components
     
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .white
         tv.dataSource = self
-        tv.delegate = self
         tv.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
         tv.tableHeaderView = headerView
         return tv
@@ -77,24 +88,19 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return contents.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier) as? ContentCell else {
             return UITableViewCell()
         }
-        
-        guard let festival = self.festival, let information = self.information else { return UITableViewCell() }
-        
-        cell.mainView.setupData(festival, information: information)
+        let title = titles[indexPath.row]
+        let content = contents[indexPath.row]
+        cell.titleLabel.text = title
+        cell.contentTextLabel.text = content
+        cell.selectionStyle = .none
         return cell
     }
 }
 
-extension DetailViewController: UITableViewDelegate {
-    // NOTE: InfomationView 의 높이를 계산해서 Cell의 높이를 줄 수는 없을까?
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.size.height / 1.5
-    }
-}

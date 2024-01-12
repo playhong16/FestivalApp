@@ -10,13 +10,36 @@ import UIKit
 final class ContentCell: UITableViewCell {
     static let identifier = "ContentCell"
     
-    var mainView: InfomationView!
+    lazy var stackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [titleLabel, contentTextLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 10
+        return sv
+    }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.text = "제목"
+        return label
+    }()
+    
+    let contentTextLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .black
+        label.text = "내용"
+        label.numberOfLines = 0
+        return label
+    }()
     
     // MARK: - Life Cycle
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.mainView = InfomationView()
         addSubviews()
         setLayout()
     }
@@ -28,16 +51,16 @@ final class ContentCell: UITableViewCell {
     // MARK: - Layout
     
     func addSubviews() {
-        contentView.addSubview(mainView)
+        contentView.addSubview(stackView)
     }
     
     func setLayout() {
-        mainView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
 }
