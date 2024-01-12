@@ -28,6 +28,7 @@
 		05DDA6722B4E4FD70052B730 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6712B4E4FD70052B730 /* NetworkError.swift */; };
 		05DDA6742B4E76DD0052B730 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */; };
 		05DDA6772B4EBAAA0052B730 /* NetworkResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */; };
+		05DDA6792B5105E70052B730 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6782B5105E70052B730 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		05DDA6712B4E4FD70052B730 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResource.swift; sourceTree = "<group>"; };
+		05DDA6782B5105E70052B730 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				05DDA65E2B47D2040052B730 /* UIImageView+Extension.swift */,
+				05DDA6782B5105E70052B730 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				05DDA65A2B47BFD60052B730 /* NetworkManager.swift in Sources */,
 				05DDA6562B4653690052B730 /* MockFestival.swift in Sources */,
 				05DDA6582B4656C10052B730 /* FestivalCell.swift in Sources */,
+				05DDA6792B5105E70052B730 /* String+Extension.swift in Sources */,
 				05DDA6622B4AB9D30052B730 /* DataManager.swift in Sources */,
 				05DDA6662B4AD5010052B730 /* ContentCell.swift in Sources */,
 				05DDA65F2B47D2040052B730 /* UIImageView+Extension.swift in Sources */,
