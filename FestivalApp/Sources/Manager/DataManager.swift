@@ -21,11 +21,12 @@ final class DataManager {
     private init() {}
     
     func setupDatasFromAPI(completion: @escaping () -> Void) {
-        networkManager.fetchFestival { result in
+        networkManager.fetchFestival(pageNumber: networkManager.pageNumber) { result in
             switch result {
             case .success(let festivals):
                 completion()
-                self._festivalList = festivals
+                self._festivalList += festivals
+                print(self.networkManager.pageNumber)
             case .failure(let error):
                 print(error)
                 completion()
