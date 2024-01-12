@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+extension String {
+    func convertContentDate() -> String {
+        var convertedString = self
+        convertedString.insert(".", at: self.index(self.startIndex, offsetBy: 4))
+        convertedString.insert(".", at: self.index(self.startIndex, offsetBy: 7))
+        return convertedString
+    }
+}
