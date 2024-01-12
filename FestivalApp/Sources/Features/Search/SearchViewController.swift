@@ -11,14 +11,14 @@ final class SearchViewController: UIViewController {
     
     private let dataManager = DataManager.shared
     
+    var filterdFestivals: [Festival] = []
+    
     var isFiltered: Bool {
         let searchController = self.navigationItem.searchController
         let isActive = searchController?.isActive ?? false
         let isSearchBarhasText = searchController?.searchBar.text?.isEmpty == false
         return isActive && isSearchBarhasText
     }
-    
-    var filterdFestivals: [Festival] = []
     
     // MARK: - Components
 
@@ -81,7 +81,10 @@ final class SearchViewController: UIViewController {
     // MARK: - Data
     
     func setupDatas() {
-        indicator.startAnimating()
+        if NetworkManager.shared.pageNumber == 1 {
+            indicator.startAnimating()
+        }
+        
         dataManager.setupDatasFromAPI {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -110,8 +113,10 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        tableView.reloadData()
+        if isFiltered {
+            searchBar.text = ""
+            tableView.reloadData()
+        }
     }
 }
 
@@ -156,6 +161,16 @@ extension SearchViewController: UITableViewDelegate {
             DispatchQueue.main.async {
                 self.navigationController?.pushViewController(detailVC, animated: true)
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let pageNumber = NetworkManager.shared.pageNumber
+        guard pageNumber != 1 else { return }
+        print((indexPath.row + 1) / 10 + 1)
+        if (indexPath.row + 1) / 10 + 1 == pageNumber {
+            setupDatas()
+            return
         }
     }
 }
