@@ -72,8 +72,9 @@ final class FestivalCell: UITableViewCell {
     }
     
     func setupData(_ festival: Festival) {
-        let startDate = StringFormatter.convertCustomStringDate(from: festival.eventStartDate)
-        let endDate = StringFormatter.convertCustomStringDate(from: festival.eventEndDate)
+        let startDate = festival.eventStartDate.convertContentDate()
+        let endDate = festival.eventEndDate.convertContentDate()
+        
         DispatchQueue.main.async {
             self.mainImageView.setImage(to: festival.imageURLString)
             self.titleLabel.text = festival.title
