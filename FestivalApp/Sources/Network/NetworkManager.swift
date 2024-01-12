@@ -12,6 +12,7 @@ final class NetworkManager {
     static let shared = NetworkManager()
     
     private let session = URLSession(configuration: URLSessionConfiguration.default)
+    var pageNumber = 1
     
     private init() {}
     
@@ -39,14 +40,15 @@ final class NetworkManager {
     
     // MARK: - Festivals
 
-    func fetchFestival(completion: @escaping (FestivalResult) -> Void) {
+    func fetchFestival(pageNumber: Int, completion: @escaping (FestivalResult) -> Void) {
         let date = Date()
         let dateFormmatter = DateFormatter()
         dateFormmatter.dateFormat = "YYYYMMDD"
         let todayString = dateFormmatter.string(from: date)
-        let urlString = NetworkResource.searchURL + "&eventStartDate=\(todayString)"
+        let urlString = NetworkResource.searchURL + "&eventStartDate=\(todayString)" + "&pageNo=\(pageNumber)"
         
         guard let url = URL(string: urlString) else {
+            print(urlString)
             completion(.failure(.invalidURL))
             return
         }
@@ -63,6 +65,7 @@ final class NetworkManager {
                 let decoder = JSONDecoder()
                 let decodedData = try decoder.decode(FestivalWelcome.self, from: data)
                 let festivalList = decodedData.response.body.items.festivals
+                self.pageNumber = decodedData.response.body.pageNo + 1
                 completion(.success(festivalList))
             } catch {
                 completion(.failure(.jsonDecodingError(error: error)))
