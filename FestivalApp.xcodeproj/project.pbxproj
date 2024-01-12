@@ -22,9 +22,7 @@
 		05DDA65F2B47D2040052B730 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA65E2B47D2040052B730 /* UIImageView+Extension.swift */; };
 		05DDA6622B4AB9D30052B730 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6612B4AB9D30052B730 /* DataManager.swift */; };
 		05DDA6662B4AD5010052B730 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6652B4AD5010052B730 /* ContentCell.swift */; };
-		05DDA6682B4AD6AF0052B730 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6672B4AD6AF0052B730 /* InformationView.swift */; };
 		05DDA66B2B4B8EE40052B730 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66A2B4B8EE40052B730 /* Information.swift */; };
-		05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */; };
 		05DDA6722B4E4FD70052B730 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6712B4E4FD70052B730 /* NetworkError.swift */; };
 		05DDA6742B4E76DD0052B730 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */; };
 		05DDA6772B4EBAAA0052B730 /* NetworkResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */; };
@@ -50,9 +48,7 @@
 		05DDA6602B4A80580052B730 /* APIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKey.xcconfig; sourceTree = "<group>"; };
 		05DDA6612B4AB9D30052B730 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		05DDA6652B4AD5010052B730 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
-		05DDA6672B4AD6AF0052B730 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		05DDA66A2B4B8EE40052B730 /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
-		05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		05DDA6712B4E4FD70052B730 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResource.swift; sourceTree = "<group>"; };
@@ -120,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				05DDA6752B4E91C40052B730 /* Network */,
-				05DDA66C2B4D1A230052B730 /* Helper */,
 				05DDA65D2B47D1EA0052B730 /* Extension */,
 				05DDA6422B4533F70052B730 /* App */,
 				05DDA64D2B4535800052B730 /* Models */,
@@ -181,7 +176,6 @@
 			children = (
 				05DDA64F2B4535B60052B730 /* DetailViewController.swift */,
 				05DDA6652B4AD5010052B730 /* ContentCell.swift */,
-				05DDA6672B4AD6AF0052B730 /* InformationView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -193,14 +187,6 @@
 				05DDA6782B5105E70052B730 /* String+Extension.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		05DDA66C2B4D1A230052B730 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				05DDA66D2B4D1A5D0052B730 /* StringFormatter.swift */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		05DDA6752B4E91C40052B730 /* Network */ = {
@@ -283,7 +269,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05DDA6682B4AD6AF0052B730 /* InformationView.swift in Sources */,
 				05DDA6412B4533F00052B730 /* SearchViewController.swift in Sources */,
 				05DDA6742B4E76DD0052B730 /* ImageCacheManager.swift in Sources */,
 				05DDA6442B45343E0052B730 /* MainTabBarController.swift in Sources */,
@@ -296,7 +281,6 @@
 				05DDA6662B4AD5010052B730 /* ContentCell.swift in Sources */,
 				05DDA65F2B47D2040052B730 /* UIImageView+Extension.swift in Sources */,
 				05DDA62A2B4533950052B730 /* AppDelegate.swift in Sources */,
-				05DDA66E2B4D1A5D0052B730 /* StringFormatter.swift in Sources */,
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
 				05DDA6772B4EBAAA0052B730 /* NetworkResource.swift in Sources */,
