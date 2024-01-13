@@ -96,9 +96,10 @@ extension DetailViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let title = titles[indexPath.row]
-        let content = contents[indexPath.row]
+        let text = contents[indexPath.row]
+        let changedText = text?.changeBrTag()
         cell.titleLabel.text = title
-        cell.contentTextLabel.text = content
+        cell.contentTextLabel.text = changedText
         cell.selectionStyle = .none
         return cell
     }

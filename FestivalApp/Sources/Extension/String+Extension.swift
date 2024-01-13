@@ -14,4 +14,9 @@ extension String {
         convertedString.insert(".", at: self.index(self.startIndex, offsetBy: 7))
         return convertedString
     }
+    
+    func changeBrTag() -> String {
+        let changedString = self.replacingOccurrences(of: "<br>", with: "\n")
+        return changedString
+    }
 }
