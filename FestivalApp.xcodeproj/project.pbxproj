@@ -27,6 +27,8 @@
 		05DDA6742B4E76DD0052B730 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */; };
 		05DDA6772B4EBAAA0052B730 /* NetworkResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */; };
 		05DDA6792B5105E70052B730 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6782B5105E70052B730 /* String+Extension.swift */; };
+		05DDA67D2B54FF990052B730 /* SavedFestivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA67C2B54FF990052B730 /* SavedFestivalViewController.swift */; };
+		05DDA67F2B5502E50052B730 /* SavedFestivalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA67E2B5502E50052B730 /* SavedFestivalCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		05DDA6732B4E76DD0052B730 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResource.swift; sourceTree = "<group>"; };
 		05DDA6782B5105E70052B730 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		05DDA67C2B54FF990052B730 /* SavedFestivalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFestivalViewController.swift; sourceTree = "<group>"; };
+		05DDA67E2B5502E50052B730 /* SavedFestivalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFestivalCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 		05DDA6472B4534D00052B730 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				05DDA67B2B54FDC50052B730 /* Save */,
 				05DDA67A2B54FCBA0052B730 /* TabBar */,
 				05DDA64E2B4535A10052B730 /* Detail */,
 				05DDA6482B4534E50052B730 /* Search */,
@@ -197,6 +202,15 @@
 				05DDA6432B45343E0052B730 /* MainTabBarController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		05DDA67B2B54FDC50052B730 /* Save */ = {
+			isa = PBXGroup;
+			children = (
+				05DDA67C2B54FF990052B730 /* SavedFestivalViewController.swift */,
+				05DDA67E2B5502E50052B730 /* SavedFestivalCell.swift */,
+			);
+			path = Save;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +287,7 @@
 				05DDA6742B4E76DD0052B730 /* ImageCacheManager.swift in Sources */,
 				05DDA6442B45343E0052B730 /* MainTabBarController.swift in Sources */,
 				05DDA66B2B4B8EE40052B730 /* Information.swift in Sources */,
+				05DDA67D2B54FF990052B730 /* SavedFestivalViewController.swift in Sources */,
 				05DDA65A2B47BFD60052B730 /* NetworkManager.swift in Sources */,
 				05DDA6562B4653690052B730 /* MockFestival.swift in Sources */,
 				05DDA6582B4656C10052B730 /* FestivalCell.swift in Sources */,
@@ -283,6 +298,7 @@
 				05DDA62A2B4533950052B730 /* AppDelegate.swift in Sources */,
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
+				05DDA67F2B5502E50052B730 /* SavedFestivalCell.swift in Sources */,
 				05DDA6772B4EBAAA0052B730 /* NetworkResource.swift in Sources */,
 				05DDA6722B4E4FD70052B730 /* NetworkError.swift in Sources */,
 				05DDA6502B4535B60052B730 /* DetailViewController.swift in Sources */,
