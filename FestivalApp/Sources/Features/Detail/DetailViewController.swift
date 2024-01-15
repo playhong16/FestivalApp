@@ -42,6 +42,22 @@ final class DetailViewController: UIViewController {
         return iv
     }()
     
+    var bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.borderWidth = 0.3
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        return view
+    }()
+    
+    var heartButton: UIButton = {
+        let button = UIButton()
+        let config = UIImage.SymbolConfiguration(pointSize: 25)
+        button.setImage(UIImage(systemName: "heart", withConfiguration: config), for: .normal)
+        button.tintColor = .lightGray
+        return button
+    }()
+    
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -56,15 +72,33 @@ final class DetailViewController: UIViewController {
     
     func addSubviews() {
         view.addSubview(tableView)
+        view.addSubview(bottomView)
+        bottomView.addSubview(heartButton)
     }
     
     func setLayout() {
+        let bottomViewHeight = view.bounds.height / 10
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomViewHeight)
+        ])
+        
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomView.heightAnchor.constraint(equalToConstant: bottomViewHeight)
+        ])
+        
+        heartButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            heartButton.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 25),
+            heartButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -20),
         ])
     }
     
