@@ -128,8 +128,8 @@
 		05DDA6472B4534D00052B730 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				05DDA67A2B54FCBA0052B730 /* TabBar */,
 				05DDA64E2B4535A10052B730 /* Detail */,
-				05DDA6492B4534F20052B730 /* TabBar */,
 				05DDA6482B4534E50052B730 /* Search */,
 			);
 			path = Features;
@@ -142,14 +142,6 @@
 				05DDA6572B4656C10052B730 /* FestivalCell.swift */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		05DDA6492B4534F20052B730 /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				05DDA6432B45343E0052B730 /* MainTabBarController.swift */,
-			);
-			name = TabBar;
 			sourceTree = "<group>";
 		};
 		05DDA64A2B4535200052B730 /* Manager */ = {
@@ -197,6 +189,14 @@
 				05DDA6762B4EBAAA0052B730 /* NetworkResource.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		05DDA67A2B54FCBA0052B730 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				05DDA6432B45343E0052B730 /* MainTabBarController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
