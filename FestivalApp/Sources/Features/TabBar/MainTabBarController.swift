@@ -23,6 +23,10 @@ final class MainTabBarController: UITabBarController {
     private func setupItems() {
         let searchVC = UINavigationController(rootViewController: SearchViewController())
         searchVC.tabBarItem = UITabBarItem(title: "검색", image: UIImage(systemName: "magnifyingglass"), tag: 0)
-        self.viewControllers = [searchVC]
+        
+        let savedFestivalVC = UINavigationController(rootViewController: SavedFestivalViewController())
+        savedFestivalVC.tabBarItem = UITabBarItem(title: "검색", image: UIImage(systemName: "heart"), tag: 1)
+        
+        self.viewControllers = [searchVC, savedFestivalVC]
     }
 }
