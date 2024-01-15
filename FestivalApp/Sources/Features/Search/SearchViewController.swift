@@ -159,6 +159,7 @@ extension SearchViewController: UITableViewDelegate {
             detailVC.festival = festival
             detailVC.information = information
             DispatchQueue.main.async {
+                detailVC.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(detailVC, animated: true)
             }
         }
