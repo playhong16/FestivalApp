@@ -139,13 +139,13 @@ final class DetailViewController: UIViewController {
         information?.isSaved.toggle()
         if information?.isSaved == true {
             guard let festival = self.festival else { return }
-            DataManager.shared.saveFestival(festival)
+            dataManager.saveFestival(festival)
             return
         }
         
         if information?.isSaved == false {
             guard let festival = self.festival else { return }
-            DataManager.shared.removeFestival(festival)
+            dataManager.removeFestival(festival)
             return
         }
     }
