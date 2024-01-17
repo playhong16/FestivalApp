@@ -50,11 +50,14 @@ final class DetailViewController: UIViewController {
         return view
     }()
     
-    var heartButton: UIButton = {
+    private let buttonImageConfig = UIImage.SymbolConfiguration(pointSize: 25)
+    
+    lazy var heartButton: UIButton = {
         let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 25)
-        button.setImage(UIImage(systemName: "heart", withConfiguration: config), for: .normal)
+        button.setImage(UIImage(systemName: "heart", withConfiguration: buttonImageConfig), for: .normal)
+        button.setImage(UIImage(systemName: "heart.fill", withConfiguration: buttonImageConfig), for: .selected)
         button.tintColor = .lightGray
+        button.addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -116,6 +119,20 @@ final class DetailViewController: UIViewController {
         guard let urlString = urlString else { return }
         headerView.setImage(to: urlString)
     }
+    
+    // MARK: - Action
+    
+    @objc
+    func heartButtonTapped(_ sender: UIButton) {
+        heartButton.isSelected.toggle()
+        information?.isSaved.toggle()
+        if information?.isSaved == true {
+            guard let festival = self.festival else { return }
+            DataManager.shared.saveFestival(festival)
+            return
+        }
+    }
+
 }
 
 // MARK: - Extension
