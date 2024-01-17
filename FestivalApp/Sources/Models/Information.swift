@@ -37,6 +37,11 @@ struct InformationData: Codable {
 struct Information: Codable {
     let contentid, contenttypeid, serialnum, infoname: String
     let infotext, fldgubun: String
+    var isSaved = false
+    
+    enum CodingKeys: String, CodingKey {
+        case contentid, contenttypeid, serialnum, infoname, infotext, fldgubun
+    }
 }
 
 // MARK: - Header
