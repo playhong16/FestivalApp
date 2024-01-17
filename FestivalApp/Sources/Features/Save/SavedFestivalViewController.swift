@@ -9,6 +9,8 @@ import UIKit
 
 final class SavedFestivalViewController: UIViewController {
     
+    private let dataManger = DataManager.shared
+    
     // MARK: - Components
     
     lazy var collectionView: UICollectionView = {
@@ -25,9 +27,14 @@ final class SavedFestivalViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .brown
+        view.backgroundColor = .white
         addSubviews()
         setLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
     }
     
     // MARK: - Layout
@@ -51,19 +58,21 @@ final class SavedFestivalViewController: UIViewController {
 
 extension SavedFestivalViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return dataManger.savedFestivals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedFestivalCell.identifier, for: indexPath) as? SavedFestivalCell else {
             return UICollectionViewCell()
         }
+        let festival = dataManger.savedFestivals[indexPath.row]
+        cell.setupData(festival)
         return cell
     }
 }
 
 extension SavedFestivalViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height / 5)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height / 6)
     }
 }
