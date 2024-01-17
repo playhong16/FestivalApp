@@ -14,7 +14,13 @@ final class DataManager {
     var festivalList: [Festival] {
         return self._festivalList
     }
+    
+    var savedFestivals: [Festival] {
+        return _savedFestivals
+    }
+    
     private var _festivalList: [Festival] = []
+    private var _savedFestivals: [Festival] = []
     
     private let networkManager = NetworkManager.shared
     
@@ -43,5 +49,9 @@ final class DataManager {
                 print(error)
             }
         }
+    }
+    
+    func saveFestival(_ festival: Festival) {
+        _savedFestivals.append(festival)
     }
 }
