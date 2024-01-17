@@ -53,5 +53,10 @@ final class DataManager {
     
     func saveFestival(_ festival: Festival) {
         _savedFestivals.append(festival)
+        print(_savedFestivals)
+    }
+    
+    func removeFestival(_ target: Festival) {
+        _savedFestivals.removeAll { $0.contentid == target.contentid }
     }
 }

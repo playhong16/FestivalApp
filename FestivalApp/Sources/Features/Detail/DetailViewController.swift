@@ -131,6 +131,12 @@ final class DetailViewController: UIViewController {
             DataManager.shared.saveFestival(festival)
             return
         }
+        
+        if information?.isSaved == false {
+            guard let festival = self.festival else { return }
+            DataManager.shared.removeFestival(festival)
+            return
+        }
     }
 
 }
