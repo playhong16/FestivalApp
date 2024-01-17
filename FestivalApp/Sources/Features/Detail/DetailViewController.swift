@@ -24,6 +24,8 @@ final class DetailViewController: UIViewController {
         return [festival.title, date, information.infotext, festival.tel]
     }
     
+    let dataManager = DataManager.shared
+    
     // MARK: - Components
     
     lazy var tableView: UITableView = {
@@ -69,6 +71,7 @@ final class DetailViewController: UIViewController {
         setLayout()
         setNavigationController()
         setMainImage(urlString: self.festival?.imageURLString)
+        setSavedFestival()
     }
     
     // MARK: - Layout
@@ -111,6 +114,14 @@ final class DetailViewController: UIViewController {
         self.navigationItem.title = "상세 정보"
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+    }
+    
+    func setSavedFestival() {
+        let result = dataManager.savedFestivals.contains { $0.contentid == self.festival?.contentid }
+        if result == true {
+            heartButton.isSelected.toggle()
+            return
+        }
     }
     
     // MARK: - Data
