@@ -22,6 +22,13 @@ final class SavedFestivalViewController: UIViewController {
         cv.register(SavedFestivalCell.self, forCellWithReuseIdentifier: SavedFestivalCell.identifier)
         return cv
     }()
+    
+    let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.text = "저장된 축제가 없습니다."
+        return label
+    }()
 
     // MARK: - Life Cycle
 
@@ -34,6 +41,7 @@ final class SavedFestivalViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupEmptyData()
         collectionView.reloadData()
     }
     
@@ -41,6 +49,7 @@ final class SavedFestivalViewController: UIViewController {
 
     func addSubviews() {
         view.addSubview(collectionView)
+        view.addSubview(emptyLabel)
     }
     
     func setLayout() {
@@ -51,7 +60,24 @@ final class SavedFestivalViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
+    
+    // MARK: - Configure
+    
+    func setupEmptyData() {
+        if dataManger.savedFestivals.isEmpty {
+            emptyLabel.isHidden = false
+        } else {
+            emptyLabel.isHidden = true
+        }
+    }
+
 }
 
 // MARK: - Extension
