@@ -52,6 +52,17 @@ class SavedFestivalCell: UICollectionViewCell {
         return label
     }()
     
+    private let buttonImageConfig = UIImage.SymbolConfiguration(pointSize: 25)
+    
+    lazy var heartButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "heart", withConfiguration: buttonImageConfig), for: .normal)
+        button.setImage(UIImage(systemName: "heart.fill", withConfiguration: buttonImageConfig), for: .selected)
+        button.tintColor = .lightGray
+        button.addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Life Cycle
 
     override init(frame: CGRect) {
@@ -70,6 +81,7 @@ class SavedFestivalCell: UICollectionViewCell {
     func addSubviews() {
         contentView.addSubview(mainImageView)
         contentView.addSubview(stackView)
+        contentView.addSubview(heartButton)
     }
     
     func setLayout() {
@@ -87,6 +99,12 @@ class SavedFestivalCell: UICollectionViewCell {
             stackView.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50)
+        ])
+        
+        heartButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            heartButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     
@@ -109,4 +127,12 @@ class SavedFestivalCell: UICollectionViewCell {
             self.addressLabel.text = festival.addr1
         }
     }
+    
+    // MARK: - Action
+    
+    @objc
+    func heartButtonTapped(_ sender: UIButton) {
+        heartButton.isSelected.toggle()
+    }
+
 }
