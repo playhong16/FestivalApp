@@ -29,6 +29,7 @@
 		05DDA6792B5105E70052B730 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6782B5105E70052B730 /* String+Extension.swift */; };
 		05DDA67D2B54FF990052B730 /* SavedFestivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA67C2B54FF990052B730 /* SavedFestivalViewController.swift */; };
 		05DDA67F2B5502E50052B730 /* SavedFestivalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA67E2B5502E50052B730 /* SavedFestivalCell.swift */; };
+		05DDA6892B58E28D0052B730 /* Extension+UINavgationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6882B58E28D0052B730 /* Extension+UINavgationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		05DDA6782B5105E70052B730 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		05DDA67C2B54FF990052B730 /* SavedFestivalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFestivalViewController.swift; sourceTree = "<group>"; };
 		05DDA67E2B5502E50052B730 /* SavedFestivalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFestivalCell.swift; sourceTree = "<group>"; };
+		05DDA6882B58E28D0052B730 /* Extension+UINavgationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UINavgationController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			children = (
 				05DDA65E2B47D2040052B730 /* UIImageView+Extension.swift */,
 				05DDA6782B5105E70052B730 /* String+Extension.swift */,
+				05DDA6882B58E28D0052B730 /* Extension+UINavgationController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				05DDA65A2B47BFD60052B730 /* NetworkManager.swift in Sources */,
 				05DDA6562B4653690052B730 /* MockFestival.swift in Sources */,
 				05DDA6582B4656C10052B730 /* FestivalCell.swift in Sources */,
+				05DDA6892B58E28D0052B730 /* Extension+UINavgationController.swift in Sources */,
 				05DDA6792B5105E70052B730 /* String+Extension.swift in Sources */,
 				05DDA6622B4AB9D30052B730 /* DataManager.swift in Sources */,
 				05DDA6662B4AD5010052B730 /* ContentCell.swift in Sources */,
