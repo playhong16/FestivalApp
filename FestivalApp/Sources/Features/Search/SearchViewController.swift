@@ -43,6 +43,8 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "검색"
+        navigationController?.setupBarAppearance()
         embedSearchControl()
         addSubviews()
         setLayout()
