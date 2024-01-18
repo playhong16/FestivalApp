@@ -49,6 +49,7 @@ final class FestivalCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
+        label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
     }()
