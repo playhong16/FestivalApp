@@ -19,6 +19,9 @@ extension UINavigationController {
             return appearance
         }()
         
+        appearance.titlePositionAdjustment = UIOffset(horizontal: -(view.frame.width / 2.5),
+                                                      vertical: 0)
+        
         navigationBar.standardAppearance = appearance
         navigationBar.compactAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
