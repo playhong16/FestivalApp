@@ -30,6 +30,7 @@
 		05DDA67D2B54FF990052B730 /* SavedFestivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA67C2B54FF990052B730 /* SavedFestivalViewController.swift */; };
 		05DDA67F2B5502E50052B730 /* SavedFestivalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA67E2B5502E50052B730 /* SavedFestivalCell.swift */; };
 		05DDA6892B58E28D0052B730 /* UINavgationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6882B58E28D0052B730 /* UINavgationController+Extension.swift */; };
+		05DDA6902B5C09A50052B730 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA68F2B5C09A50052B730 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		05DDA67C2B54FF990052B730 /* SavedFestivalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFestivalViewController.swift; sourceTree = "<group>"; };
 		05DDA67E2B5502E50052B730 /* SavedFestivalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFestivalCell.swift; sourceTree = "<group>"; };
 		05DDA6882B58E28D0052B730 /* UINavgationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavgationController+Extension.swift"; sourceTree = "<group>"; };
+		05DDA68F2B5C09A50052B730 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				05DDA65E2B47D2040052B730 /* UIImageView+Extension.swift */,
 				05DDA6782B5105E70052B730 /* String+Extension.swift */,
 				05DDA6882B58E28D0052B730 /* UINavgationController+Extension.swift */,
+				05DDA68F2B5C09A50052B730 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				05DDA6412B4533F00052B730 /* SearchViewController.swift in Sources */,
 				05DDA6742B4E76DD0052B730 /* ImageCacheManager.swift in Sources */,
 				05DDA6442B45343E0052B730 /* MainTabBarController.swift in Sources */,
+				05DDA6902B5C09A50052B730 /* UIColor+Extension.swift in Sources */,
 				05DDA66B2B4B8EE40052B730 /* Information.swift in Sources */,
 				05DDA67D2B54FF990052B730 /* SavedFestivalViewController.swift in Sources */,
 				05DDA65A2B47BFD60052B730 /* NetworkManager.swift in Sources */,
