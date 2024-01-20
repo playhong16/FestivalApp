@@ -63,6 +63,15 @@ final class DetailViewController: UIViewController {
         return button
     }()
     
+    let homepageButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .customSky
+        button.tintColor = .white
+        button.layer.cornerRadius = 8
+        button.setTitle("홈페이지", for: .normal)        
+        return button
+    }()
+    
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -80,6 +89,7 @@ final class DetailViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(bottomView)
         bottomView.addSubview(heartButton)
+        bottomView.addSubview(homepageButton)
     }
     
     func setLayout() {
@@ -105,6 +115,12 @@ final class DetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             heartButton.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 25),
             heartButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -20),
+        ])
+        
+        homepageButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            homepageButton.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 25),
+            homepageButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor)
         ])
     }
     
