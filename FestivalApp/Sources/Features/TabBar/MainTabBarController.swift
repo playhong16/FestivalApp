@@ -17,7 +17,7 @@ final class MainTabBarController: UITabBarController {
     
     private func configure() {
         tabBar.backgroundColor = .white
-        tabBar.tintColor = .systemBlue
+        tabBar.tintColor = .customSky
     }
     
     private func setupItems() {
