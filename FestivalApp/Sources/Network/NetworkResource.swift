@@ -20,7 +20,7 @@ struct NetworkResource {
     
     // MARK: - Base
 
-    private static let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as! String
+    static let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as! String
     private static let baseURL = "https://apis.data.go.kr/B551011/KorService1/"
     
     // MARK: - Parameter
