@@ -56,10 +56,12 @@ final class SearchViewController: UIViewController {
     private func embedSearchControl() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.placeholder = "축제 이름을 입력해주세요."
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "축제 이름을 입력해주세요."
         searchController.searchBar.delegate = self
         self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     
@@ -93,6 +95,14 @@ final class SearchViewController: UIViewController {
                 self.indicator.stopAnimating()
             }
         }
+    }
+    
+    func updateIndexPaths(_ row: Int) -> [IndexPath] {
+        var indexPaths:[IndexPath] = []
+        for number in 1...10 {
+            indexPaths.append(IndexPath(row: row + number, section: 0))
+        }
+        return indexPaths
     }
 }
 
@@ -173,8 +183,17 @@ extension SearchViewController: UITableViewDelegate {
         guard pageNumber != 1 else { return }
         print((indexPath.row + 1) / 10 + 1)
         if (indexPath.row + 1) / 10 + 1 == pageNumber {
-            setupDatas()
+            guard let lastRow = tableView.indexPathsForVisibleRows?.last?.row else { return }
+            let indexPaths = self.updateIndexPaths(lastRow)
+            dataManager.setupDatasFromAPI {
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.beginUpdates()
+                    self?.tableView.insertRows(at: indexPaths, with: .none)
+                    self?.tableView.endUpdates()
+                }
+            }
             return
         }
+        
     }
 }
