@@ -104,6 +104,7 @@ final class SearchViewController: UIViewController {
     
     private func updateCell() {
         print("Update PageNumber: \(self.nextPageNumber)페이지 입니다.")
+        self.indicator.startAnimating()
         dataManager.fetchFestivalsFromAPI(pageNumber: nextPageNumber) { [weak self] pageNumber, festivals in
             self?.nextPageNumber = pageNumber
             self?.festivals += festivals
@@ -119,6 +120,7 @@ final class SearchViewController: UIViewController {
                     self?.tableView.beginUpdates()
                     self?.tableView.insertRows(at: indexPaths, with: .none)
                     self?.tableView.endUpdates()
+                    self?.indicator.stopAnimating()
                     print("셀 업데이트 후 마지막 행:\(self?.tableView.indexPathsForVisibleRows)")
                 }
             }
@@ -132,7 +134,7 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let keyword = searchController.searchBar.text else { return }
         if keyword.isEmpty == false {
-            filterdFestivals = dataManager.festivalList.filter { $0.title.contains(keyword) }
+            self.filterdFestivals = self.festivals.filter { $0.title.contains(keyword) }
             tableView.reloadData()
         }
     }
@@ -192,7 +194,7 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
-        let festival = dataManager.festivalList[indexPath.row]
+        let festival = self.festivals[indexPath.row]
         dataManager.fetchFestivalDetailInfomationFromAPI(contentID: festival.contentid) { information in
             detailVC.festival = festival
             detailVC.information = information
