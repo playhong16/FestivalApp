@@ -18,8 +18,8 @@ final class NetworkManager {
     
     // MARK: - Result
 
-    typealias FestivalResult = Result<[Festival], NetworkError>
-    typealias InformationResult = Result<Information?, NetworkError>
+    typealias FestivalResult = Result<FestivalWelcome, NetworkError>
+    typealias InformationResult = Result<InformationWelcome, NetworkError>
     
     // MARK: - Image
 
@@ -40,7 +40,7 @@ final class NetworkManager {
     
     // MARK: - Festivals
 
-    func fetchFestival(pageNumber: Int, completion: @escaping (FestivalResult) -> Void) {
+    func requestFestivals(pageNumber: Int, completion: @escaping (FestivalResult) -> Void) {
         let date = Date()
         let dateFormmatter = DateFormatter()
         dateFormmatter.dateFormat = "YYYYMMDD"
@@ -48,59 +48,50 @@ final class NetworkManager {
         let urlString = NetworkResource.searchURL + "&eventStartDate=\(todayString)" + "&pageNo=\(pageNumber)"
         
         guard let url = URL(string: urlString) else {
-            print(urlString)
             completion(.failure(.invalidURL))
             return
         }
         
-        let task = session.dataTask(with: url) { data, response, error in
+        task(url, completion: completion)
+    }
+    
+    // MARK: - Detail Information
+    
+    func requestDetailInfomation(contentID: String, completion: @escaping (InformationResult) -> Void) {
+        let urlString = NetworkResource.detailInformationURL + "&contentId=\(contentID)"
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        task(url, completion: completion)
+    }
+    
+    // MARK: - Task
+
+    private func task<T>(_ url: URL, completion: @escaping (Result<T, NetworkError>) -> Void) where T: Decodable {
+        let task = session.dataTask(with: url) { [weak self] data, response, error in
             if let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) == false {
                 completion(.failure(.responseError(statusCode: httpResponse.statusCode)))
                 return
             }
-
-            guard let data = data else { return }
             
-            do {
-                let decoder = JSONDecoder()
-                let decodedData = try decoder.decode(FestivalWelcome.self, from: data)
-                let festivalList = decodedData.response.body.items.festivals
-                self.pageNumber = decodedData.response.body.pageNo + 1
-                completion(.success(festivalList))
-            } catch {
-                completion(.failure(.jsonDecodingError(error: error)))
+            if let data = data {
+                self?.parseJson(data, completion: completion)
+                return
             }
         }
         task.resume()
     }
     
-    // MARK: - Detail Information
+    // MARK: - Parse
 
-    func fetchDetailInfomation(contentID: String, completion: @escaping (InformationResult) -> Void) {
-        let urlString = NetworkResource.detailInformationURL + "&contentId=\(contentID)"
-        guard let url = URL(string: urlString)
-        else {
-            completion(.failure(.invalidURL))
-            return
+    private func parseJson<T>(_ data: Data, completion: @escaping (Result<T, NetworkError>) -> Void) where T: Decodable {
+        do {
+            let decoder = JSONDecoder()
+            let decodedData = try decoder.decode(T.self, from: data)
+            completion(.success(decodedData))
+        } catch {
+            completion(.failure(NetworkError.jsonDecodingError(error: error)))
         }
-        
-        let task = session.dataTask(with: url) { data, response, error in
-            if let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) == false {
-                completion(.failure(.responseError(statusCode: httpResponse.statusCode)))
-                return
-            }
-            
-            guard let data = data else { return }
-            
-            do {
-                let decoder = JSONDecoder()
-                let decodedData = try decoder.decode(InformationWelcome.self, from: data)
-                let information = decodedData.response.body.items.information
-                completion(.success(information.first))
-            } catch {
-                completion(.failure(.jsonDecodingError(error: error)))
-            }
-        }
-        task.resume()
     }
 }
