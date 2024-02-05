@@ -11,7 +11,9 @@ final class SearchViewController: UIViewController {
     
     private let dataManager = DataManager.shared
     
-    var filterdFestivals: [Festival] = []
+    private var nextPageNumber: Int = 1
+    private var festivals: [Festival] = []
+    private var filterdFestivals: [Festival] = []
     
     var isFiltered: Bool {
         let searchController = self.navigationItem.searchController
@@ -21,8 +23,8 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Components
-
-    lazy var tableView: UITableView = {
+    
+    private lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .white
         tv.dataSource = self
@@ -31,16 +33,16 @@ final class SearchViewController: UIViewController {
         return tv
     }()
     
-    lazy var indicator: UIActivityIndicatorView = {
+    private lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.color = .lightGray
         indicator.center = view.center
         indicator.style = .large
         return indicator
     }()
-
+    
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "축제 정보"
@@ -63,16 +65,16 @@ final class SearchViewController: UIViewController {
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
-
+    
     
     // MARK: - Layout
     
-    func addSubviews() {
+    private func addSubviews() {
         view.addSubview(tableView)
         view.addSubview(indicator)
     }
     
-    func setLayout() {
+    private func setLayout() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -84,40 +86,59 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Data
     
-    func setupDatas() {
-        if NetworkManager.shared.pageNumber == 1 {
+    private func setupDatas() {
+        if self.nextPageNumber == 1 {
             indicator.startAnimating()
         }
         
-        dataManager.setupDatasFromAPI {
+        dataManager.fetchFestivalsFromAPI(pageNumber: nextPageNumber) { [weak self] pageNumber, festivals in
+            self?.nextPageNumber = pageNumber
+            self?.festivals = festivals
+            
             DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.indicator.stopAnimating()
+                self?.tableView.reloadData()
+                self?.indicator.stopAnimating()
             }
         }
     }
     
-    func updateIndexPaths(_ row: Int) -> [IndexPath] {
-        var indexPaths:[IndexPath] = []
-        for number in 1...10 {
-            indexPaths.append(IndexPath(row: row + number, section: 0))
+    private func updateCell() {
+        print("Update PageNumber: \(self.nextPageNumber)페이지 입니다.")
+        dataManager.fetchFestivalsFromAPI(pageNumber: nextPageNumber) { [weak self] pageNumber, festivals in
+            self?.nextPageNumber = pageNumber
+            self?.festivals += festivals
+            
+            DispatchQueue.main.async {
+                if let lastRow = self?.tableView.indexPathsForVisibleRows?.last?.row {
+                    print("현재 축제 수: \(self?.festivals.count)개")
+                    var indexPaths: [IndexPath] = []
+                    for new in 1...festivals.count {
+                        indexPaths.append(IndexPath(row: lastRow + new, section: 0))
+                    }
+                    
+                    self?.tableView.beginUpdates()
+                    self?.tableView.insertRows(at: indexPaths, with: .none)
+                    self?.tableView.endUpdates()
+                    print("셀 업데이트 후 마지막 행:\(self?.tableView.indexPathsForVisibleRows)")
+                }
+            }
         }
-        return indexPaths
     }
 }
 
-// MARK: - Extension
+// MARK: - Extension + UISearchResultsUpdating
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let keyword = searchController.searchBar.text else { return }
-        print("search: \(keyword)")
         if keyword.isEmpty == false {
             filterdFestivals = dataManager.festivalList.filter { $0.title.contains(keyword) }
             tableView.reloadData()
         }
     }
 }
+
+// MARK: - Extension + UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -132,13 +153,15 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - Extension + UITableViewDataSource
+
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltered {
             return self.filterdFestivals.count
         }
         
-        return dataManager.festivalList.count
+        return self.festivals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -147,17 +170,19 @@ extension SearchViewController: UITableViewDataSource {
         }
         
         if isFiltered {
-            let festivals = self.filterdFestivals
-            cell.setupData(festivals[indexPath.row])
+            let filteredFestivals = self.filterdFestivals
+            cell.setupData(filteredFestivals[indexPath.row])
             return cell
         }
         
-        let festivalList = dataManager.festivalList
-        cell.setupData(festivalList[indexPath.row])
+        let festivals = self.festivals
+        cell.setupData(festivals[indexPath.row])
         
         return cell
     }
 }
+
+// MARK: - Extension + UITableViewDelegate
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -168,7 +193,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
         let festival = dataManager.festivalList[indexPath.row]
-        dataManager.setupInfomationFromAPI(contentID: festival.contentid) { information in
+        dataManager.fetchFestivalDetailInfomationFromAPI(contentID: festival.contentid) { information in
             detailVC.festival = festival
             detailVC.information = information
             DispatchQueue.main.async {
@@ -179,21 +204,10 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let pageNumber = NetworkManager.shared.pageNumber
-        guard pageNumber != 1 else { return }
-        print((indexPath.row + 1) / 10 + 1)
-        if (indexPath.row + 1) / 10 + 1 == pageNumber {
-            guard let lastRow = tableView.indexPathsForVisibleRows?.last?.row else { return }
-            let indexPaths = self.updateIndexPaths(lastRow)
-            dataManager.setupDatasFromAPI {
-                DispatchQueue.main.async { [weak self] in
-                    self?.tableView.beginUpdates()
-                    self?.tableView.insertRows(at: indexPaths, with: .none)
-                    self?.tableView.endUpdates()
-                }
-            }
+        guard self.nextPageNumber != 1 else { return }
+        if (indexPath.row + 1) / 10 + 1 == self.nextPageNumber {
+            updateCell()
             return
         }
-        
     }
 }
