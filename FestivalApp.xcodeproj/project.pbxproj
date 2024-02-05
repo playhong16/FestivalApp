@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		05474C092B6CBFDB00FEA96B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05474C082B6CBFDB00FEA96B /* Router.swift */; };
+		05474C5E2B70B37700FEA96B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 05474C5D2B70B37700FEA96B /* Lottie */; };
+		05474C602B70B3A100FEA96B /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05474C5F2B70B3A100FEA96B /* Splash.storyboard */; };
+		05474C622B70B3BF00FEA96B /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05474C612B70B3BF00FEA96B /* SplashViewController.swift */; };
 		05DDA62A2B4533950052B730 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6292B4533950052B730 /* AppDelegate.swift */; };
 		05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA62B2B4533950052B730 /* SceneDelegate.swift */; };
 		05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05DDA6322B4533950052B730 /* FestivalApp.xcdatamodeld */; };
@@ -36,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		05474C082B6CBFDB00FEA96B /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		05474C5F2B70B3A100FEA96B /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
+		05474C612B70B3BF00FEA96B /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		05DDA6262B4533950052B730 /* FestivalApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivalApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05DDA6292B4533950052B730 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05DDA62B2B4533950052B730 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,12 +75,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05474C5E2B70B37700FEA96B /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05474C632B70B67700FEA96B /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				05474C612B70B3BF00FEA96B /* SplashViewController.swift */,
+				05474C5F2B70B3A100FEA96B /* Splash.storyboard */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		05DDA61D2B4533950052B730 = {
 			isa = PBXGroup;
 			children = (
@@ -104,8 +119,10 @@
 		05DDA6422B4533F70052B730 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				05474C632B70B67700FEA96B /* Splash */,
 				05DDA6292B4533950052B730 /* AppDelegate.swift */,
 				05DDA62B2B4533950052B730 /* SceneDelegate.swift */,
+				05DDA6372B4533980052B730 /* LaunchScreen.storyboard */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -115,7 +132,6 @@
 			children = (
 				05DDA6602B4A80580052B730 /* APIKey.xcconfig */,
 				05DDA6352B4533980052B730 /* Assets.xcassets */,
-				05DDA6372B4533980052B730 /* LaunchScreen.storyboard */,
 				05DDA63A2B4533980052B730 /* Info.plist */,
 				05DDA6322B4533950052B730 /* FestivalApp.xcdatamodeld */,
 			);
@@ -238,6 +254,9 @@
 			dependencies = (
 			);
 			name = FestivalApp;
+			packageProductDependencies = (
+				05474C5D2B70B37700FEA96B /* Lottie */,
+			);
 			productName = FestivalApp;
 			productReference = 05DDA6262B4533950052B730 /* FestivalApp.app */;
 			productType = "com.apple.product-type.application";
@@ -266,6 +285,9 @@
 				Base,
 			);
 			mainGroup = 05DDA61D2B4533950052B730;
+			packageReferences = (
+				05474C5C2B70B37700FEA96B /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 05DDA6272B4533950052B730 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -282,6 +304,7 @@
 			files = (
 				05DDA6392B4533980052B730 /* LaunchScreen.storyboard in Resources */,
 				05DDA6362B4533980052B730 /* Assets.xcassets in Resources */,
+				05474C602B70B3A100FEA96B /* Splash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +330,7 @@
 				05DDA6662B4AD5010052B730 /* ContentCell.swift in Sources */,
 				05DDA65F2B47D2040052B730 /* UIImageView+Extension.swift in Sources */,
 				05DDA62A2B4533950052B730 /* AppDelegate.swift in Sources */,
+				05474C622B70B3BF00FEA96B /* SplashViewController.swift in Sources */,
 				05474C092B6CBFDB00FEA96B /* Router.swift in Sources */,
 				05DDA62C2B4533950052B730 /* SceneDelegate.swift in Sources */,
 				05DDA6342B4533950052B730 /* FestivalApp.xcdatamodeld in Sources */,
@@ -532,6 +556,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		05474C5C2B70B37700FEA96B /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		05474C5D2B70B37700FEA96B /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 05474C5C2B70B37700FEA96B /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		05DDA6322B4533950052B730 /* FestivalApp.xcdatamodeld */ = {
