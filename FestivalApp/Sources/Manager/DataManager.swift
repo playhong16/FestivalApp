@@ -26,25 +26,26 @@ final class DataManager {
     
     private init() {}
     
-    func setupDatasFromAPI(completion: @escaping () -> Void) {
-        networkManager.fetchFestival(pageNumber: networkManager.pageNumber) { result in
+    func fetchFestivalsFromAPI(pageNumber: Int, completion: @escaping (Int, [Festival]) -> Void) {
+        networkManager.requestFestivals(pageNumber: pageNumber) { result in
             switch result {
-            case .success(let festivals):
-                completion()
-                self._festivalList += festivals
-                print(self.networkManager.pageNumber)
+            case .success(let welcomeData):
+                let nextPageNumber = welcomeData.response.body.pageNo + 1
+                let festivals = welcomeData.response.body.items.festivals
+                completion(nextPageNumber, festivals)
             case .failure(let error):
                 print(error)
-                completion()
             }
         }
     }
     
-    func setupInfomationFromAPI(contentID: String,completion: @escaping (Information?) -> Void) {
-        networkManager.fetchDetailInfomation(contentID: contentID) { result in
+    func fetchFestivalDetailInfomationFromAPI(contentID: String, completion: @escaping (Information) -> Void) {
+        networkManager.requestDetailInfomation(contentID: contentID) { result in
             switch result {
-            case .success(let information):
-                completion(information)
+            case .success(let welcomeData):
+                if let information = welcomeData.response.body.items.information.first {
+                    completion(information)
+                }
             case .failure(let error):
                 print(error)
             }
