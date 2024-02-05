@@ -33,7 +33,7 @@ final class SearchViewController: UIViewController {
     
     lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.color = .customSky
+        indicator.color = .lightGray
         indicator.center = view.center
         indicator.style = .large
         return indicator
