@@ -12,7 +12,6 @@ final class NetworkManager {
     static let shared = NetworkManager()
     
     private let session = URLSession(configuration: URLSessionConfiguration.default)
-    var pageNumber = 1
     
     private init() {}
     

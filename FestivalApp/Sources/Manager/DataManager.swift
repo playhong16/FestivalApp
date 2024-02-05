@@ -10,16 +10,10 @@ import UIKit
 final class DataManager {
     
     static let shared = DataManager()
-    
-    var festivalList: [Festival] {
-        return self._festivalList
-    }
-    
+
     var savedFestivals: [Festival] {
         return _savedFestivals
     }
-    
-    private var _festivalList: [Festival] = []
     private var _savedFestivals: [Festival] = []
     
     private let networkManager = NetworkManager.shared
