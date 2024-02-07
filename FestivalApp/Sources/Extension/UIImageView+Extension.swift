@@ -18,22 +18,21 @@ extension UIImageView {
             return
         }
         
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
             let cachedKey = NSString(string: urlString)
             
             if let cachedImage = ImageCacheManager.shared.object(forKey: cachedKey) {
                 DispatchQueue.main.async {
-                    self.image = cachedImage
+                    self?.image = cachedImage
                     return
                 }
             }
-            
-            NetworkManager.shared.fetchImage(urlString: urlString) { image in
-                if let image = image {
-                    DispatchQueue.main.async {
-                        ImageCacheManager.shared.setObject(image, forKey: cachedKey)
-                        self.image = image
-                    }
+                
+            if let data = try? Data(contentsOf: url),
+               let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    ImageCacheManager.shared.setObject(image, forKey: cachedKey)
+                    self?.image = image
                 }
             }
         }
