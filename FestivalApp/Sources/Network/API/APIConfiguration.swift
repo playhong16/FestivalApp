@@ -1,5 +1,5 @@
 //
-//  API.swift
+//  APIConfiguration.swift
 //  FestivalApp
 //
 //  Created by playhong on 2024/02/07.
@@ -7,48 +7,40 @@
 
 import Foundation
 
-typealias Parameters = [String: String]
 
-protocol APIConfiguration {
-    associatedtype ResponseType: Decodable
-    var baseURL: String { get }
-    var path: String { get }
-    var httpMethod: HTTPMethod { get }
-    var parameters: Parameters? { get }
-    var url: URL? { get }
-    var request: URLRequest? { get }
-}
 
-extension API {
-    var baseURL: String {
-        return "https://apis.data.go.kr"
-    }
+struct APIConfiguration {
+    typealias Parameters = [String: String]
     
+    var baseURL: URL
+    var path: String
+    var httpMethod: HTTPMethod
+    var parameters: Parameters?
     var url: URL? {
-        guard let url = URL(string: self.baseURL) else { return nil }
-        
-        var urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        urlComponent?.path = path
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+        urlComponents?.path = path
         
         var queryItems: [URLQueryItem] = []
         parameters?.forEach { key, value in
             queryItems.append(URLQueryItem(name: key, value: value))
         }
-        urlComponent?.percentEncodedQueryItems = queryItems
+        urlComponents?.percentEncodedQueryItems = queryItems
         
-        return urlComponent?.url
+        return urlComponents?.url
     }
-    
-    var request: URLRequest? {
-        guard let url = self.url else { return nil }
+    var urlRequest: URLRequest? {
+        guard let url = url else { return nil }
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
         
-        if self.httpMethod == .get {
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        }
-        
         return request
+    }
+    
+    init(baseURL: URL, path: String, httpMethod: HTTPMethod, parameters: Parameters? = nil) {
+        self.baseURL = baseURL
+        self.path = path
+        self.httpMethod = httpMethod
+        self.parameters = parameters
     }
 }
