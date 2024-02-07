@@ -8,27 +8,29 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    
-    var festival: Festival?
-    var information: Information?
-    
-    var titles: [String] {
+    private let dataManager = DataManager.shared
+    private var festival: Festival?
+    private var information: Information?
+    private var titles: [String] {
         ["행사 이름", "행사 날짜", "행사 소개", "행사 문의"]
     }
+    private var api: DetailInformationAPI {
+        guard let contentID = festival?.contentid else { return DetailInformationAPI(contentID: "") }
+        return DetailInformationAPI(contentID: contentID)
+    }
     
-    var contents: [String?] {
-        guard let festival = festival, let information = information else { return [] }
+    private var contents: [String?] {
+        guard let festival = self.festival,
+              let information = self.information else { return [] }
         let startDate = festival.eventStartDate.convertContentDate()
         let endDate = festival.eventEndDate.convertContentDate()
         let date = "\(startDate) ~ \(endDate)"
         return [festival.title, date, information.infotext, festival.tel]
     }
-    
-    let dataManager = DataManager.shared
-    
+
     // MARK: - Components
-    
-    lazy var tableView: UITableView = {
+
+    private lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .white
         tv.dataSource = self
@@ -37,14 +39,22 @@ final class DetailViewController: UIViewController {
         return tv
     }()
     
-    lazy var headerView: UIImageView = {
+    private lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .lightGray
+        indicator.center = view.center
+        indicator.style = .large
+        return indicator
+    }()
+    
+    private lazy var headerView: UIImageView = {
         let iv = UIImageView(
             frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height / 3))
         iv.contentMode = .scaleAspectFit
         return iv
     }()
     
-    var bottomView: UIView = {
+    private var bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.borderWidth = 0.3
@@ -54,7 +64,7 @@ final class DetailViewController: UIViewController {
     
     private let buttonImageConfig = UIImage.SymbolConfiguration(pointSize: 25)
     
-    lazy var heartButton: UIButton = {
+    private lazy var heartButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "heart", withConfiguration: buttonImageConfig), for: .normal)
         button.setImage(UIImage(systemName: "heart.fill", withConfiguration: buttonImageConfig), for: .selected)
@@ -63,7 +73,7 @@ final class DetailViewController: UIViewController {
         return button
     }()
     
-    let homepageButton: UIButton = {
+    private let homepageButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .customSky
         button.tintColor = .white
@@ -73,26 +83,35 @@ final class DetailViewController: UIViewController {
     }()
     
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
+        print(indicator.isAnimating)
         setLayout()
         setNavigationController()
-        setMainImage(urlString: self.festival?.imageURLString)
         setSavedFestival()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if information == nil {
+            indicator.startAnimating()
+            print(indicator.isAnimating)
+        }
     }
     
     // MARK: - Layout
     
-    func addSubviews() {
+    private func addSubviews() {
+        view.addSubview(indicator)
         view.addSubview(tableView)
         view.addSubview(bottomView)
         bottomView.addSubview(heartButton)
         bottomView.addSubview(homepageButton)
     }
     
-    func setLayout() {
+    private func setLayout() {
         let bottomViewHeight = view.bounds.height / 10
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -126,14 +145,14 @@ final class DetailViewController: UIViewController {
     
     // MARK: - Configure
 
-    func setNavigationController() {
+    private func setNavigationController() {
         self.navigationItem.title = "상세 정보"
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
     }
     
-    func setSavedFestival() {
-        let result = dataManager.savedFestivals.contains { $0.contentid == self.festival?.contentid }
+    private func setSavedFestival() {
+        let result = dataManager.savedFestivals.contains { $0.contentid == festival?.contentid }
         if result == true {
             heartButton.isSelected.toggle()
             return
@@ -141,8 +160,24 @@ final class DetailViewController: UIViewController {
     }
     
     // MARK: - Data
-
-    func setMainImage(urlString: String?) {
+    
+    func setupData(_ festival: Festival) {
+        self.festival = festival
+        api.execute { [weak self] result in
+            switch result {
+            case .success(let responseData):
+                let information = responseData.response.body.items.information.first
+                self?.information = information
+                self?.setMainImage(urlString: festival.imageURLString)
+                self?.indicator.stopAnimating()
+                self?.tableView.reloadData()
+            case .failure(let error):
+                print("ERROR: DetailVC - \(error)")
+            }
+        }
+    }
+    
+    private func setMainImage(urlString: String?) {
         guard let urlString = urlString else { return }
         headerView.setImage(to: urlString)
     }
@@ -151,16 +186,16 @@ final class DetailViewController: UIViewController {
     
     @objc
     func heartButtonTapped(_ sender: UIButton) {
+        guard let festival = self.festival else { return }
         heartButton.isSelected.toggle()
         information?.isSaved.toggle()
+        
         if information?.isSaved == true {
-            guard let festival = self.festival else { return }
             dataManager.saveFestival(festival)
             return
         }
         
         if information?.isSaved == false {
-            guard let festival = self.festival else { return }
             dataManager.removeFestival(festival)
             return
         }
