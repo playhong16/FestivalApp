@@ -13,13 +13,13 @@ final class FestivalCell: UITableViewCell {
     
     // MARK: - Components
 
-    let mainImageView: UIImageView = {
+    private let mainImageView: UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .lightGray
         return iv
     }()
     
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.distribution = .fillEqually
@@ -30,7 +30,7 @@ final class FestivalCell: UITableViewCell {
         return sv
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
@@ -38,14 +38,14 @@ final class FestivalCell: UITableViewCell {
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.textColor = .black
         return label
     }()
     
-    let addressLabel: UILabel = {
+    private let addressLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
@@ -67,9 +67,15 @@ final class FestivalCell: UITableViewCell {
         fatalError()
     }
     
+    override func prepareForReuse() {
+        DispatchQueue.main.async { [weak self] in
+            self?.mainImageView.image = UIImage()
+        }
+    }
+    
     // MARK: - Configure
     
-    func configureCell() {
+    private func configureCell() {
         contentView.backgroundColor = .white
         self.selectionStyle = .none
     }
@@ -88,12 +94,12 @@ final class FestivalCell: UITableViewCell {
     
     // MARK: - Layout
     
-    func addSubviews() {
+    private func addSubviews() {
         contentView.addSubview(mainImageView)
         contentView.addSubview(stackView)
     }
     
-    func setLayout() {
+    private func setLayout() {
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
