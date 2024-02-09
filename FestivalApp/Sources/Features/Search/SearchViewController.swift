@@ -10,8 +10,9 @@ import UIKit
 final class SearchViewController: UIViewController {
     
     private let dataManager = DataManager.shared
-    
+    private var api = FestivalAPI()
     private var nextPageNumber: Int = 1
+    private var isPaging: Bool = true
     private var festivals: [Festival] = []
     private var filterdFestivals: [Festival] = []
     
@@ -87,44 +88,41 @@ final class SearchViewController: UIViewController {
     // MARK: - Data
     
     private func setupDatas() {
-        if self.nextPageNumber == 1 {
+        if festivals.isEmpty {
             indicator.startAnimating()
-        }
-        
-        dataManager.fetchFestivalsFromAPI(pageNumber: nextPageNumber) { [weak self] pageNumber, festivals in
-            self?.nextPageNumber = pageNumber
-            self?.festivals = festivals
             
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+            fetchDatasFromAPI { [weak self] in
                 self?.indicator.stopAnimating()
+                self?.tableView.reloadData()
             }
         }
     }
     
-    private func updateCell() {
-        print("Update PageNumber: \(self.nextPageNumber)페이지 입니다.")
-        self.indicator.startAnimating()
-        dataManager.fetchFestivalsFromAPI(pageNumber: nextPageNumber) { [weak self] pageNumber, festivals in
-            self?.nextPageNumber = pageNumber
-            self?.festivals += festivals
-            
-            DispatchQueue.main.async {
-                if let lastRow = self?.tableView.indexPathsForVisibleRows?.last?.row {
-                    print("현재 축제 수: \(self?.festivals.count)개")
-                    var indexPaths: [IndexPath] = []
-                    for new in 1...festivals.count {
-                        indexPaths.append(IndexPath(row: lastRow + new, section: 0))
-                    }
-                    
-                    self?.tableView.beginUpdates()
-                    self?.tableView.insertRows(at: indexPaths, with: .none)
-                    self?.tableView.endUpdates()
-                    self?.indicator.stopAnimating()
-                    print("셀 업데이트 후 마지막 행:\(self?.tableView.indexPathsForVisibleRows)")
+    private func fetchDatasFromAPI(completionHandler: @escaping () -> Void) {
+        api.execute { [weak self] result in
+            switch result {
+            case .success(let responseData):
+                let festivals  = responseData.response.body.items.festivals
+                self?.nextPageNumber += 1
+                self?.festivals.append(contentsOf: festivals)
+                completionHandler()
+            case .failure(let error):
+                if let _ = self?.tableView.tableFooterView {
+                    self?.tableView.tableFooterView = nil
                 }
+                print(error)
             }
         }
+    }
+    
+    private func createIndicatorFooter() -> UIView {
+        let height = view.bounds.size.height / 8
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: height))
+        let indicator = UIActivityIndicatorView()
+        indicator.center = footerView.center
+        footerView.addSubview(indicator)
+        indicator.startAnimating()
+        return indicator
     }
 }
 
@@ -143,10 +141,6 @@ extension SearchViewController: UISearchResultsUpdating {
 // MARK: - Extension + UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("Button Cliked \(searchBar.text)")
-    }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if isFiltered {
             searchBar.text = ""
@@ -193,23 +187,27 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
         let festival = self.festivals[indexPath.row]
-        dataManager.fetchFestivalDetailInfomationFromAPI(contentID: festival.contentid) { information in
-            detailVC.festival = festival
-            detailVC.information = information
-            DispatchQueue.main.async {
-                detailVC.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(detailVC, animated: true)
-            }
-        }
+        let detailVC = DetailViewController()
+        detailVC.setupData(festival)
+        detailVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard self.nextPageNumber != 1 else { return }
-        if (indexPath.row + 1) / 10 + 1 == self.nextPageNumber {
-            updateCell()
-            return
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let trigger = scrollView.contentSize.height - scrollView.bounds.height
+        
+        if scrollView.contentOffset.y > trigger {
+            if isPaging {
+                isPaging = false
+                api.updatePage(nextPageNumber)
+                tableView.tableFooterView = createIndicatorFooter()
+                
+                fetchDatasFromAPI { [weak self] in
+                    self?.isPaging = true
+                    self?.tableView.reloadData()
+                }
+            }
         }
     }
 }
