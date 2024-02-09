@@ -9,11 +9,7 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
-    private let dataManager = DataManager.shared
-    private var api = FestivalAPI()
-    private var nextPageNumber: Int = 1
-    private var isPaging: Bool = true
-    private var festivals: [Festival] = []
+    private var viewModel = SearchViewModel()
     private var filterdFestivals: [Festival] = []
     
     var isFiltered: Bool {
@@ -88,29 +84,15 @@ final class SearchViewController: UIViewController {
     // MARK: - Data
     
     private func setupDatas() {
-        if festivals.isEmpty {
+        if viewModel.festivals.isEmpty {
             indicator.startAnimating()
             
-            fetchDatasFromAPI { [weak self] in
+            viewModel.fetchDatasFromAPI { [weak self] in
                 self?.indicator.stopAnimating()
+                self?.indicator.removeFromSuperview()
                 self?.tableView.reloadData()
-            }
-        }
-    }
-    
-    private func fetchDatasFromAPI(completionHandler: @escaping () -> Void) {
-        api.execute { [weak self] result in
-            switch result {
-            case .success(let responseData):
-                let festivals  = responseData.response.body.items.festivals
-                self?.nextPageNumber += 1
-                self?.festivals.append(contentsOf: festivals)
-                completionHandler()
-            case .failure(let error):
-                if let _ = self?.tableView.tableFooterView {
-                    self?.tableView.tableFooterView = nil
-                }
-                print(error)
+            } failure: { error in
+                print("데이터 가져오기 실패! \(error)")
             }
         }
     }
@@ -122,7 +104,7 @@ final class SearchViewController: UIViewController {
         indicator.center = footerView.center
         footerView.addSubview(indicator)
         indicator.startAnimating()
-        return indicator
+        return footerView
     }
 }
 
@@ -132,7 +114,7 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let keyword = searchController.searchBar.text else { return }
         if keyword.isEmpty == false {
-            self.filterdFestivals = self.festivals.filter { $0.title.contains(keyword) }
+            self.filterdFestivals = viewModel.festivals.filter { $0.title.contains(keyword) }
             tableView.reloadData()
         }
     }
@@ -157,7 +139,7 @@ extension SearchViewController: UITableViewDataSource {
             return self.filterdFestivals.count
         }
         
-        return self.festivals.count
+        return viewModel.festivals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -171,7 +153,7 @@ extension SearchViewController: UITableViewDataSource {
             return cell
         }
         
-        let festivals = self.festivals
+        let festivals = viewModel.festivals
         cell.setupData(festivals[indexPath.row])
         
         return cell
@@ -187,7 +169,7 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let festival = self.festivals[indexPath.row]
+        let festival = viewModel.festivals[indexPath.row]
         let detailVC = DetailViewController()
         detailVC.setupData(festival)
         detailVC.hidesBottomBarWhenPushed = true
@@ -198,15 +180,14 @@ extension SearchViewController: UITableViewDelegate {
         let trigger = scrollView.contentSize.height - scrollView.bounds.height
         
         if scrollView.contentOffset.y > trigger {
-            if isPaging {
-                isPaging = false
-                api.updatePage(nextPageNumber)
+            if viewModel.isPaging {
                 tableView.tableFooterView = createIndicatorFooter()
-                
-                fetchDatasFromAPI { [weak self] in
-                    self?.isPaging = true
-                    self?.tableView.reloadData()
-                }
+            }
+            
+            viewModel.paging { [weak self] in
+                self?.tableView.reloadData()
+            } failure: { [weak self] _ in
+                self?.tableView.tableFooterView = nil
             }
         }
     }
